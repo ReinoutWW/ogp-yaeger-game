@@ -11,7 +11,6 @@ public class Brawhalla extends YaegerGame {
 
     @Override
     public void setupGame() {
-
     }
 
     @Override
