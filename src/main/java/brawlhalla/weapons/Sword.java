@@ -1,9 +1,11 @@
 package brawlhalla.weapons;
 
 import brawlhalla.utility.Direction;
+import com.github.hanyaeger.api.Coordinate2D;
 
 public class Sword extends Melee {
-    public Sword() {
+    public Sword(Coordinate2D initialLocation) {
+        super(initialLocation);
         attackSpeedCooldown = 7;
         verticalDamage = 5;
         horizontalDamage = 20;

@@ -1,9 +1,11 @@
 package brawlhalla.weapons;
 
 import brawlhalla.utility.Direction;
+import com.github.hanyaeger.api.Coordinate2D;
 
 public class Pistol extends ProjectileWeapon {
-    public Pistol() {
+    public Pistol(Coordinate2D initialLocation) {
+        super(initialLocation);
     }
 
     @Override

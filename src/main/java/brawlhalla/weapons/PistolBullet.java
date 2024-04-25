@@ -1,9 +1,13 @@
 package brawlhalla.weapons;
 
-public class PistolBullet implements IProjectile {
+import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.impl.SpriteEntity;
+
+public class PistolBullet extends SpriteEntity implements IProjectile {
     int bulletDamage = 10;
 
-    public PistolBullet() {
+    public PistolBullet(Coordinate2D initialLocation) {
+        super("", initialLocation);
     }
 
     @Override
