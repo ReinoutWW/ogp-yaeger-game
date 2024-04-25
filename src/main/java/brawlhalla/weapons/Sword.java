@@ -3,8 +3,10 @@ package brawlhalla.weapons;
 import brawlhalla.utility.Direction;
 
 public class Sword extends Melee {
-    public Sword(boolean isHeldByCharacter, int attackSpeedCooldown) {
-        super(isHeldByCharacter, attackSpeedCooldown, 10, 10);
+    public Sword() {
+        attackSpeedCooldown = 7;
+        verticalDamage = 5;
+        horizontalDamage = 20;
     }
 
     @Override

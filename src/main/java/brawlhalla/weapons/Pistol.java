@@ -3,8 +3,7 @@ package brawlhalla.weapons;
 import brawlhalla.utility.Direction;
 
 public class Pistol extends ProjectileWeapon {
-    public Pistol(boolean isHeldByCharacter, int attackSpeedCooldown) {
-        super(isHeldByCharacter, attackSpeedCooldown);
+    public Pistol() {
     }
 
     @Override

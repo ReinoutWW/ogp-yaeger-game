@@ -3,8 +3,7 @@ package brawlhalla.weapons;
 public class PistolBullet implements IProjectile {
     int bulletDamage = 10;
 
-    public PistolBullet(int bulletDamage) {
-        this.bulletDamage = bulletDamage;
+    public PistolBullet() {
     }
 
     @Override

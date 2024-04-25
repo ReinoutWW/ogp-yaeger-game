@@ -3,8 +3,10 @@ package brawlhalla.weapons;
 import brawlhalla.utility.Direction;
 
 public class Dagger extends Melee {
-    public Dagger(boolean isHeldByCharacter, int attackSpeedCooldown) {
-        super(isHeldByCharacter, attackSpeedCooldown, 10, 10);
+    public Dagger() {
+        attackSpeedCooldown = 5;
+        verticalDamage = 10;
+        horizontalDamage = 15;
     }
 
     @Override
