@@ -1,10 +1,9 @@
 package brawlhalla.scenes;
 
-import brawlhalla.levelObjects.Island;
-import brawlhalla.levelObjects.MovingPlatform;
+import brawlhalla.scenes.components.Island;
+import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.Player;
 import brawlhalla.player.characters.CactiCharacter;
-import brawlhalla.player.characters.Character;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.scenes.DynamicScene;

@@ -1,6 +1,6 @@
 package brawlhalla.timer;
 
-import brawlhalla.levelObjects.MovingPlatform;
+import brawlhalla.scenes.components.MovingPlatform;
 import com.github.hanyaeger.api.Timer;
 
 public class PlatformTimer extends Timer {

@@ -1,11 +1,8 @@
 package brawlhalla.player;
 
-import brawlhalla.levelObjects.Island;
-import brawlhalla.levelObjects.MovingPlatform;
-import brawlhalla.player.characters.CactiCharacter;
+import brawlhalla.scenes.components.Island;
+import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.Character;
-import brawlhalla.scenes.IslandScene;
-import brawlhalla.weapons.IProjectile;
 import brawlhalla.weapons.IWeapon;
 import brawlhalla.weapons.projectiles.Projectile;
 import brawlhalla.yaegerExtension.ClassCollided;
@@ -13,10 +10,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
-import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.List;
 import java.util.Set;
@@ -50,7 +44,6 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys){
-
         if(pressedKeys.contains(KeyCode.LEFT)){
             setMotion(3,270d);
         } else if(pressedKeys.contains(KeyCode.RIGHT)){

@@ -1,4 +1,4 @@
-package brawlhalla.levelObjects;
+package brawlhalla.scenes.components;
 
 import brawlhalla.timer.PlatformTimer;
 import com.github.hanyaeger.api.Coordinate2D;
