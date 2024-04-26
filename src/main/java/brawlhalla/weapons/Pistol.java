@@ -1,22 +1,20 @@
-package brawlhalla.weapons;
+package brawlhalla.Weapons;
 
-import brawlhalla.utility.Direction;
+import brawlhalla.Weapons.Projectiles.PistolBullet;
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.Direction;
 
-public class Pistol extends ProjectileWeapon {
-    public Pistol(Coordinate2D initialLocation) {
-        super(initialLocation);
+public class Pistol extends ProjectileWeapon{
+
+    public Pistol(){
+
     }
+
 
     @Override
     public void attack(Direction direction) {
-        // Determine which projectile it should shoot here
-        // Create
-        // Shoot
-    }
 
-    @Override
-    public IWeapon pickup() {
-        return this;
+        new PistolBullet("insert bullet sprite", new Coordinate2D(), this); // insert player position as start position for Bullet
+
     }
 }
