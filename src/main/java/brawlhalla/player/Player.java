@@ -66,6 +66,16 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
             this.isGrounded = true;
             setMotion(0, 0d);
         }
+
+        if(hitsClass(list, MovingPlatform.class)) { // <-- instanceof in the background
+            var classes = getCollidedClasses(list, MovingPlatform.class);
+
+            // there can never be more than 1 moving islands in the collided. And if there are, just pick the first.
+            MovingPlatform island = (MovingPlatform)classes.getFirst();
+
+            // Set user movement as the same as the collided island
+            setMotion(island.getSpeed(), island.getDirection());
+        }
     }
 
     @Override

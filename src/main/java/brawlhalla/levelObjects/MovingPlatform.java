@@ -4,12 +4,15 @@ import brawlhalla.timer.PlatformTimer;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.Collider;
+import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 
 public class MovingPlatform extends DynamicSpriteEntity implements Collider, TimerContainer {
+    private float platformMovingSpeed = 0.5f;
+
     public MovingPlatform(String resource, Coordinate2D initialLocation) {
         super(resource, initialLocation);
-        setMotion(0.5, 180d);
+        setMotion(platformMovingSpeed, Direction.UP);
     }
 
     @Override
@@ -20,12 +23,19 @@ public class MovingPlatform extends DynamicSpriteEntity implements Collider, Tim
 
     public void switchDirection() {
         if (getDirection() == 0) {
-            setDirection(180);
+            setDirection(Direction.UP);
         }
         else {
-            setDirection(0);
+            setDirection(Direction.DOWN);
         }
     }
 
+    // For power ups, the game can speed up
+    public void changeMovingSpeed(float speed) {
+        setSpeed(speed);
+    }
 
+    public void resetMovingSpeed() {
+        setSpeed(platformMovingSpeed);
+    }
 }
