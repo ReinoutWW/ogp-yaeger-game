@@ -5,7 +5,9 @@ import brawlhalla.levelObjects.MovingPlatform;
 import brawlhalla.player.characters.CactiCharacter;
 import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.IslandScene;
+import brawlhalla.weapons.IProjectile;
 import brawlhalla.weapons.IWeapon;
+import brawlhalla.weapons.projectiles.Projectile;
 import brawlhalla.yaegerExtension.ClassCollided;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.*;
@@ -27,6 +29,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     private final String playerName;
     private PlayerTag playerTag;
     private boolean isGrounded;
+    private PlayerScoreStatistics playerScoreStatistics = new PlayerScoreStatistics();
 
     public Player(Coordinate2D initialLocation, String name, Character character) {
         super(initialLocation);
@@ -71,8 +74,15 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         // there can never be more than 1 moving platform in the collided. And if there are, just pick the first.
         // Set user movement as the same as the collided moving platform.
         if(hitsClass(list, MovingPlatform.class)) { // <-- instanceof in the background
-            MovingPlatform movingPlatform = (MovingPlatform)getCollidedClasses(list, MovingPlatform.class).getFirst();
+            MovingPlatform movingPlatform = getFirstOfCollidedClasses(list, MovingPlatform.class);
             moveWithMovingPlatform(movingPlatform);
+        }
+
+        // Check if there's a Projectile.class in the list
+        if(hitsClass(list, Projectile.class)) {
+            Projectile collidedProjectile = getFirstOfCollidedClasses(list, Projectile.class);
+
+            // Do something with the given projectile
         }
     }
 

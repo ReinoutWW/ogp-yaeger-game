@@ -12,8 +12,10 @@ public class CactiCharacter extends Character {
     }
 
     @Override
-    public IWeapon getDefaultWeapon(Coordinate2D initialLocation) {
+    public IWeapon createDefaultWeapon(Coordinate2D initialLocation) {
         // Create weapon
         return new Dagger(initialLocation);
     }
+
+    // Extra logic for only the CactiCharacter
 }

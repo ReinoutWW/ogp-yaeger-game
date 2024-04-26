@@ -12,5 +12,5 @@ public abstract class Character extends DynamicSpriteEntity {
         super(resource, initialLocation, size, rows, columns);
     }
 
-    public abstract IWeapon getDefaultWeapon(Coordinate2D initialLocation);
+    public abstract IWeapon createDefaultWeapon(Coordinate2D initialLocation);
 }
