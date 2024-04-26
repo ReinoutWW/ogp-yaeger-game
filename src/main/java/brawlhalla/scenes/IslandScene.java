@@ -22,13 +22,17 @@ public class IslandScene extends DynamicScene {
         var island = new Island(new Coordinate2D(getWidth() / 2 , getHeight() - 50) );
         var platform1 = new MovingPlatform(new Coordinate2D(getWidth() / 6 , 350) );
         var platform2 = new MovingPlatform(new Coordinate2D(getWidth() - (getWidth() / 3) , 350) );
+        var playerStatusIndicator = new PlayerStatusIndicator(new Coordinate2D(getWidth() - 50, 10));
 
         var player1 = new Player(
                 new Coordinate2D(getWidth() / 2, getHeight() /2),
                 "RG",
-                new CactiCharacter());
+                new CactiCharacter(),
+                playerStatusIndicator,
+                this,
+                island
+        );
 
-        var playerStatusIndicator = new PlayerStatusIndicator(player1, new Coordinate2D(getWidth() - 50, 10));
 
         island.setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
         addEntity(island);

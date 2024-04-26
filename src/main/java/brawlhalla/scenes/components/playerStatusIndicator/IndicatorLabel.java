@@ -12,8 +12,4 @@ public class IndicatorLabel extends DynamicTextEntity {
         setFill(Color.WHITE);
         setFont(Font.font("Roboto", FontWeight.BOLD, fontSize));
     }
-
-    public void changeLabel(String text) {
-        setText(text);
-    }
 }

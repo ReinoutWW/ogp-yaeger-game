@@ -8,7 +8,9 @@ import brawlhalla.weapons.IWeapon;
 import brawlhalla.weapons.projectiles.Projectile;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.*;
+import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import brawlhalla.yaegerExtension.*;
@@ -25,9 +27,15 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     private PlayerTag playerTag;
     private boolean isGrounded;
     private PlayerScoreStatistics playerScoreStatistics = new PlayerScoreStatistics();
+    private PlayerStatusIndicator playerStatusIndicator;
+    private YaegerScene scene;
+    private SpriteEntity centreIsland;
 
-    public Player(Coordinate2D initialLocation, String name, Character character) {
+    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, YaegerScene scene, SpriteEntity centreIsland) {
         super(initialLocation);
+        this.playerStatusIndicator = playerStatusIndicator;
+        this.scene = scene;
+        this.centreIsland = centreIsland;
         this.playerName = name;
         this.character = character;
         this.playerTag = new PlayerTag(
@@ -36,8 +44,10 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         );
         this.lives = 3;
 
-        setGravityConstant(0.1);
+        setGravityConstant(0.08);
         setFrictionConstant(0.04);
+
+        playerStatusIndicator.updateStatus(this);
     }
 
     public void setIsGrounded(boolean isGrounded) {
@@ -60,7 +70,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
             setMotion(3,90d);
         } else if(pressedKeys.contains(KeyCode.UP) && isGrounded){
             setIsGrounded(false);
-            setMotion(4,180d);
+            setMotion(5,180d);
         } else if(pressedKeys.contains(KeyCode.DOWN) && !isGrounded){
             setMotion(3,0d);
         }
@@ -101,8 +111,9 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     }
 
     @Override
-    public void respawn(Coordinate2D location) {
-        setAnchorLocation(location);
+    public void respawn() {
+        double centralIslandSpawnY = centreIsland.getAnchorLocation().getY() - centreIsland.getHeight() - this.getHeight();
+        setAnchorLocation(new Coordinate2D(scene.getWidth() / 2, centralIslandSpawnY));
     }
 
     @Override
@@ -118,7 +129,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
         if(sceneBorder == SceneBorder.BOTTOM) {
             decreateLives(1);
-            setAnchorLocation(new Coordinate2D(getWidth() / 2, getHeight() - 100));
+            respawn();
         }
     }
 
@@ -129,7 +140,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
     public void decreateLives(int amount) {
         lives -= amount;
-        System.out.println("Lives: " + lives);
+        playerStatusIndicator.updateStatus(this);
 
         if(lives < 1) {
             // Do something here, for example restart
