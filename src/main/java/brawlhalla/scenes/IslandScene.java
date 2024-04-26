@@ -2,6 +2,7 @@ package brawlhalla.scenes;
 
 import brawlhalla.levelObjects.Island;
 import brawlhalla.levelObjects.MovingPlatform;
+import brawlhalla.player.Player;
 import brawlhalla.player.characters.CactiCharacter;
 import brawlhalla.player.characters.Character;
 import com.github.hanyaeger.api.AnchorPoint;
@@ -20,13 +21,16 @@ public class IslandScene extends DynamicScene {
         var platform1 = new MovingPlatform("sprites/Floating Platform.png", new Coordinate2D(getWidth() / 6 , 350) );
         var platform2 = new MovingPlatform("sprites/Floating Platform.png", new Coordinate2D(getWidth() - (getWidth() / 3) , 350) );
 
-        Character cactiCharacter = new CactiCharacter(new Coordinate2D(getWidth() / 2, getHeight() / 2));
+        var player1 = new Player(
+                new Coordinate2D(getWidth() / 2, getHeight() /2),
+                "RG",
+                new CactiCharacter());
 
         island.setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
         addEntity(island);
         addEntity(platform1);
         addEntity(platform2);
-        addEntity(cactiCharacter);
+        addEntity(player1);
     }
 
 }

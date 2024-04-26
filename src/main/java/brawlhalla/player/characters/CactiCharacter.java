@@ -6,14 +6,13 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 
 public class CactiCharacter extends Character {
-    public CactiCharacter(Coordinate2D initialLocation) {
-        super("/sprites/characters/CactiRun.png", initialLocation, new Size(110, 10), 1, 11);
-        setAutoCycle(10);
-        setMotion(1, 270d);
+    public CactiCharacter() {
+        super("sprites/characters/CactiRun.png", new Coordinate2D(0, 0), new Size(50, 100), 1, 11);
+        //setAutoCycle(1);
     }
 
     @Override
-    protected IWeapon getDefaultWeapon(Coordinate2D initialLocation) {
+    public IWeapon getDefaultWeapon(Coordinate2D initialLocation) {
         // Create weapon
         return new Dagger(initialLocation);
     }
