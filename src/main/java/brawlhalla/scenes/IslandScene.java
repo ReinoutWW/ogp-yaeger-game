@@ -4,9 +4,12 @@ import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.Player;
 import brawlhalla.player.characters.CactiCharacter;
+import brawlhalla.scenes.components.playerStatusIndicator.IndicatorCircle;
+import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.scenes.DynamicScene;
+import javafx.scene.paint.Color;
 
 public class IslandScene extends DynamicScene {
     @Override
@@ -25,11 +28,14 @@ public class IslandScene extends DynamicScene {
                 "RG",
                 new CactiCharacter());
 
+        var playerStatusIndicator = new PlayerStatusIndicator(player1, new Coordinate2D(getWidth() - 50, 10));
+
         island.setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
         addEntity(island);
         addEntity(platform1);
         addEntity(platform2);
         addEntity(player1);
+        addEntity(playerStatusIndicator);
     }
 
 }

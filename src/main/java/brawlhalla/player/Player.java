@@ -3,14 +3,15 @@ package brawlhalla.player;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.Character;
+import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.weapons.IWeapon;
 import brawlhalla.weapons.projectiles.Projectile;
-import brawlhalla.yaegerExtension.ClassCollided;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
+import brawlhalla.yaegerExtension.*;
 
 import java.util.List;
 import java.util.Set;
@@ -33,6 +34,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
                 new Coordinate2D(15, 0),
                 name
         );
+        this.lives = 3;
 
         setGravityConstant(0.1);
         setFrictionConstant(0.04);
@@ -40,6 +42,14 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
     public void setIsGrounded(boolean isGrounded) {
         this.isGrounded = isGrounded;
+    }
+
+    public int getDamageTakenMiltiplier() {
+        return damageTakenMiltiplier;
+    }
+
+    public int getLives() {
+        return lives;
     }
 
     @Override
@@ -58,7 +68,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
     @Override
     public void onCollision(List<Collider> list) {
-        if(hitsClass(list, Island.class) || hitsClass(list, MovingPlatform.class)) {
+        if(hitsClass(list, Island.class)) {
             // Island and platform hit
             this.isGrounded = true;
             setMotion(0, 0d);
@@ -68,7 +78,14 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         // Set user movement as the same as the collided moving platform.
         if(hitsClass(list, MovingPlatform.class)) { // <-- instanceof in the background
             MovingPlatform movingPlatform = getFirstOfCollidedClasses(list, MovingPlatform.class);
-            moveWithMovingPlatform(movingPlatform);
+
+            double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
+            double playformTopY = movingPlatform.getAnchorLocation().getY();
+
+            if(playerBottomY < playformTopY) {
+                this.isGrounded = true;
+                moveWithMovingPlatform(movingPlatform);
+            }
         }
 
         // Check if there's a Projectile.class in the list
@@ -98,5 +115,24 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
         // Check which scene border has been touched
         // If below, lose lives
+
+        if(sceneBorder == SceneBorder.BOTTOM) {
+            decreateLives(1);
+            setAnchorLocation(new Coordinate2D(getWidth() / 2, getHeight() - 100));
+        }
+    }
+
+    @Override
+    public String getName() {
+        return playerName;
+    }
+
+    public void decreateLives(int amount) {
+        lives -= amount;
+        System.out.println("Lives: " + lives);
+
+        if(lives < 1) {
+            // Do something here, for example restart
+        }
     }
 }
