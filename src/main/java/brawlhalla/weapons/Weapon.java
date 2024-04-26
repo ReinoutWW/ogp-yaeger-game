@@ -1,14 +1,15 @@
 package brawlhalla.weapons;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.impl.SpriteEntity;
+import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 
-public abstract class Weapon extends SpriteEntity implements IWeapon {
+public abstract class Weapon extends DynamicSpriteEntity implements IWeapon {
     protected int attackSpeedCooldown;
     protected boolean isHeldByCharacter;
 
-    protected Weapon(Coordinate2D initialLocation) {
-        super("", initialLocation);
+    protected Weapon(String resource, Coordinate2D initialLocation, Size size) {
+        super(resource, initialLocation, size);
     }
 
     public void setIsHeldByCharacter(boolean isHeldByCharacter) {

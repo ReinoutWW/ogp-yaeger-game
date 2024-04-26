@@ -6,6 +6,7 @@ module ogp.yaeher.game {
     opens backgrounds;
     opens sprites;
     opens sprites.characters;
+    opens sprites.weapons;
 
     exports brawlhalla;
 }

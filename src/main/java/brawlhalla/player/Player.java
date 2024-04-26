@@ -120,6 +120,9 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     protected void setupEntities() {
         addEntity(character);
         addEntity(playerTag);
+
+        // Add weapon logic here too.
+        addEntity(character.createDefaultWeapon(new Coordinate2D(40, 20)));
     }
 
     @Override
