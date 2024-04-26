@@ -32,12 +32,12 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         super(initialLocation);
         this.playerName = name;
         this.character = character;
-        this.playerTag = new PlayerTag(new Coordinate2D(
-                getWidth() / 2, 0),
+        this.playerTag = new PlayerTag(
+                new Coordinate2D(15, 0),
                 name
         );
 
-        setGravityConstant(0.05);
+        setGravityConstant(0.1);
         setFrictionConstant(0.04);
     }
 
@@ -47,13 +47,14 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys){
+
         if(pressedKeys.contains(KeyCode.LEFT)){
             setMotion(3,270d);
         } else if(pressedKeys.contains(KeyCode.RIGHT)){
             setMotion(3,90d);
         } else if(pressedKeys.contains(KeyCode.UP) && isGrounded){
             setIsGrounded(false);
-            setMotion(3,180d);
+            setMotion(4,180d);
         } else if(pressedKeys.contains(KeyCode.DOWN) && !isGrounded){
             setMotion(3,0d);
         }
@@ -67,25 +68,21 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
             setMotion(0, 0d);
         }
 
+        // there can never be more than 1 moving platform in the collided. And if there are, just pick the first.
+        // Set user movement as the same as the collided moving platform.
         if(hitsClass(list, MovingPlatform.class)) { // <-- instanceof in the background
-            var classes = getCollidedClasses(list, MovingPlatform.class);
-
-            // there can never be more than 1 moving islands in the collided. And if there are, just pick the first.
-            MovingPlatform island = (MovingPlatform)classes.getFirst();
-
-            // Set user movement as the same as the collided island
-            setMotion(island.getSpeed(), island.getDirection());
+            MovingPlatform movingPlatform = (MovingPlatform)getCollidedClasses(list, MovingPlatform.class).getFirst();
+            moveWithMovingPlatform(movingPlatform);
         }
     }
 
-    @Override
-    public void spawn() {
-
+    private void moveWithMovingPlatform(MovingPlatform movingPlatform) {
+        setMotion(movingPlatform.getSpeed(), movingPlatform.getDirection());
     }
 
     @Override
-    public void respawn() {
-
+    public void respawn(Coordinate2D location) {
+        setAnchorLocation(location);
     }
 
     @Override

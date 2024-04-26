@@ -1,6 +1,8 @@
 package brawlhalla.player;
 
-public interface IPlayer {
-    void spawn();
-    void respawn();
+import com.github.hanyaeger.api.Coordinate2D;
+
+public interface IPlayer  {
+    void respawn(Coordinate2D location);
+    void setIsGrounded(boolean isGrounded);
 }

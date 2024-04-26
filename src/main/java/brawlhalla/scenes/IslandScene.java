@@ -17,9 +17,9 @@ public class IslandScene extends DynamicScene {
 
     @Override
     public void setupEntities() {
-        var island = new Island("sprites/hd-rock-png-transparent-background-7.png", new Coordinate2D(getWidth() / 2 , getHeight()) );
-        var platform1 = new MovingPlatform("sprites/Floating Platform.png", new Coordinate2D(getWidth() / 6 , 350) );
-        var platform2 = new MovingPlatform("sprites/Floating Platform.png", new Coordinate2D(getWidth() - (getWidth() / 3) , 350) );
+        var island = new Island(new Coordinate2D(getWidth() / 2 , getHeight() - 50) );
+        var platform1 = new MovingPlatform(new Coordinate2D(getWidth() / 6 , 350) );
+        var platform2 = new MovingPlatform(new Coordinate2D(getWidth() - (getWidth() / 3) , 350) );
 
         var player1 = new Player(
                 new Coordinate2D(getWidth() / 2, getHeight() /2),

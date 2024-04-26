@@ -10,8 +10,8 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 public class MovingPlatform extends DynamicSpriteEntity implements Collider, TimerContainer {
     private float platformMovingSpeed = 0.5f;
 
-    public MovingPlatform(String resource, Coordinate2D initialLocation) {
-        super(resource, initialLocation);
+    public MovingPlatform(Coordinate2D initialLocation) {
+        super("sprites/Floating Platform.png", initialLocation);
         setMotion(platformMovingSpeed, Direction.UP);
     }
 
