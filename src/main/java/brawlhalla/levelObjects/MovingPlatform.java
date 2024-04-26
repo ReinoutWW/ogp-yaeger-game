@@ -1,9 +1,8 @@
-package brawlhalla.LevelObjects;
+package brawlhalla.levelObjects;
 
-import brawlhalla.Timer.PlatformTimer;
+import brawlhalla.timer.PlatformTimer;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.TimerContainer;
-import com.github.hanyaeger.api.entities.AnimationCallback;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 

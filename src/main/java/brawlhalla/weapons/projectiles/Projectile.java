@@ -1,6 +1,6 @@
-package brawlhalla.Weapons.Projectiles;
+package brawlhalla.weapons.projectiles;
 
-import brawlhalla.Weapons.ProjectileWeapon;
+import brawlhalla.weapons.ProjectileWeapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 

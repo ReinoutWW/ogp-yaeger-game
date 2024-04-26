@@ -1,10 +1,9 @@
-package brawlhalla.Weapons.Projectiles;
+package brawlhalla.weapons.projectiles;
 
-import brawlhalla.Weapons.ProjectileWeapon;
+import brawlhalla.weapons.ProjectileWeapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
-import com.github.hanyaeger.api.entities.impl.DynamicCircleEntity;
 
 import java.util.List;
 

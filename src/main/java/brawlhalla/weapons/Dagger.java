@@ -1,8 +1,7 @@
 package brawlhalla.weapons;
 
-import brawlhalla.utility.Direction;
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.YaegerEntity;
+import com.github.hanyaeger.api.entities.Direction;
 
 public class Dagger extends Melee {
     public Dagger(Coordinate2D initialLocation) {

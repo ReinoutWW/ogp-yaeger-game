@@ -1,4 +1,4 @@
-package brawlhalla.LevelObjects;
+package brawlhalla.levelObjects;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.Collider;

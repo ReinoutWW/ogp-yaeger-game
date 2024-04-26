@@ -1,7 +1,7 @@
 package brawlhalla.weapons;
 
-import brawlhalla.utility.Direction;
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.Direction;
 
 public class Sword extends Melee {
     public Sword(Coordinate2D initialLocation) {

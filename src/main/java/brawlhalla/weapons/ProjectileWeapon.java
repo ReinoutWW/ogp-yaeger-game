@@ -1,4 +1,4 @@
-package brawlhalla.Weapons;
+package brawlhalla.weapons;
 
 import com.github.hanyaeger.api.entities.Direction;
 

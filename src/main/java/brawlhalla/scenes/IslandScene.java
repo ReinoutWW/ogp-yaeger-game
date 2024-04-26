@@ -1,16 +1,10 @@
 package brawlhalla.scenes;
 
-import brawlhalla.LevelObjects.Island;
-import brawlhalla.LevelObjects.MovingPlatform;
-import brawlhalla.Timer.PlatformTimer;
+import brawlhalla.levelObjects.Island;
+import brawlhalla.levelObjects.MovingPlatform;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.Timer;
-import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.scenes.DynamicScene;
-import com.github.hanyaeger.api.scenes.StaticScene;
-
-import java.util.List;
 
 public class IslandScene extends DynamicScene {
     @Override

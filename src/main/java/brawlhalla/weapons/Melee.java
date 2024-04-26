@@ -1,5 +1,6 @@
 package brawlhalla.weapons;
 
+import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.Coordinate2D;
 
 public abstract class Melee extends Weapon {
@@ -8,4 +9,8 @@ public abstract class Melee extends Weapon {
     public Melee(Coordinate2D initialLocation) {
         super(initialLocation);
     }
+
+    public abstract void attack(Direction direction);
+
+    public abstract brawlhalla.weapons.IWeapon pickup();
 }
