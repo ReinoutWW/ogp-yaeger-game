@@ -12,7 +12,8 @@ public class PlatformTimer extends Timer {
     }
 
     @Override
-    public void onAnimationUpdate(long l) {
+    public void onAnimationUpdate(long l)
+    {
         movingPlatform.switchDirection();
     }
 

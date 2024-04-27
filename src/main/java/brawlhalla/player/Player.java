@@ -22,7 +22,7 @@ import java.util.Set;
 
 public abstract class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher {
     private int lives;
-    private int damageTakenMiltiplier;
+    private int damageTakenMultiplier;
     private Character character;
     private final String playerName;
     private PlayerTag playerTag;
@@ -59,7 +59,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
     }
 
     public int getDamageTakenMiltiplier() {
-        return damageTakenMiltiplier;
+        return damageTakenMultiplier;
     }
 
     public int getLives() {
@@ -156,4 +156,5 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
             // Do something here, for example restart
         }
     }
+    public abstract void CurveMotion();
 }

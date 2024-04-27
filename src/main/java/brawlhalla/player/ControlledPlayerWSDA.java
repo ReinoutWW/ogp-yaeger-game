@@ -34,4 +34,9 @@ public class ControlledPlayerWSDA extends Player {
         }
     }
 
+    @Override
+    public void CurveMotion() {
+
+    }
+
 }

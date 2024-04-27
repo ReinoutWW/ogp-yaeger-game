@@ -1,8 +1,7 @@
-package brawlhalla.Weapons;
+package brawlhalla.weapons;
 
 import brawlhalla.weapons.projectiles.PistolBullet;
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.Direction;
 
 public class Pistol extends ProjectileWeapon {
 

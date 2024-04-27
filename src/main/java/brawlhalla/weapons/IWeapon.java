@@ -1,7 +1,4 @@
-package brawlhalla.Weapons;
-
-import com.github.hanyaeger.api.entities.Direction;
-import com.github.hanyaeger.api.entities.YaegerEntity;
+package brawlhalla.weapons;
 
 public interface IWeapon {
     int attackSpeedCooldown = 0;
