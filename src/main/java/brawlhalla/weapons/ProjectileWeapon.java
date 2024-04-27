@@ -1,9 +1,9 @@
-package brawlhalla.weapons;
+package brawlhalla.Weapons;
 
-import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.Direction;
 
-public abstract class ProjectileWeapon extends Weapon {
-    public ProjectileWeapon(Coordinate2D initialLocation) {
-        super(initialLocation);
-    }
+public abstract class ProjectileWeapon implements IWeapon{
+
+    @Override
+    public abstract void attack(Direction direction) ;
 }

@@ -1,8 +1,10 @@
-package brawlhalla.weapons;
+package brawlhalla.Weapons;
 
-import brawlhalla.utility.Direction;
+import com.github.hanyaeger.api.entities.Direction;
 
 public interface IWeapon {
-    void attack(Direction direction);
-    IWeapon pickup();
+    int attackSpeedCooldown = 0;
+    boolean isHeldByCharacter = false;
+
+    public void attack(Direction direction);
 }
