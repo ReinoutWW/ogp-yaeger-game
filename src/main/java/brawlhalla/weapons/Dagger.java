@@ -13,7 +13,7 @@ public class Dagger extends Melee {
     }
 
     @Override
-    public void attack(Direction direction) {
+    public void attack(double direction) {
         // Do swing with weapon
     }
 

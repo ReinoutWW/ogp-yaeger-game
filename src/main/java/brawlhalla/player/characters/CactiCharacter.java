@@ -1,9 +1,10 @@
 package brawlhalla.player.characters;
 
 import brawlhalla.weapons.Dagger;
+import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.YaegerEntity;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class CactiCharacter extends Character {
     public CactiCharacter() {
@@ -11,8 +12,9 @@ public class CactiCharacter extends Character {
         //setAutoCycle(1);
     }
 
+    @NonNull
     @Override
-    public YaegerEntity createDefaultWeapon(Coordinate2D initialLocation) {
+    public Weapon createDefaultWeapon(Coordinate2D initialLocation) {
         // Create weapon
         return new Dagger(initialLocation, new Size(30, 60));
     }

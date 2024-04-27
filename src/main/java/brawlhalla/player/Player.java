@@ -5,6 +5,7 @@ import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.weapons.IWeapon;
+import brawlhalla.weapons.Weapon;
 import brawlhalla.weapons.projectiles.Projectile;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.*;
@@ -14,33 +15,36 @@ import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import brawlhalla.yaegerExtension.*;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 import java.util.Set;
 
-public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher {
+public abstract class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher {
     private int lives;
     private int damageTakenMiltiplier;
-    private IWeapon weapon;
     private Character character;
     private final String playerName;
     private PlayerTag playerTag;
-    private boolean isGrounded;
     private PlayerScoreStatistics playerScoreStatistics = new PlayerScoreStatistics();
     private PlayerStatusIndicator playerStatusIndicator;
     private YaegerScene scene;
     private SpriteEntity centreIsland;
+    protected Weapon weapon;
+    protected boolean isGrounded;
 
-    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, YaegerScene scene, SpriteEntity centreIsland) {
+    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, YaegerScene scene, SpriteEntity centreIsland, Color playerColor) {
         super(initialLocation);
         this.playerStatusIndicator = playerStatusIndicator;
         this.scene = scene;
         this.centreIsland = centreIsland;
         this.playerName = name;
         this.character = character;
+        this.weapon = character.createDefaultWeapon(new Coordinate2D(25, 10));
         this.playerTag = new PlayerTag(
                 new Coordinate2D(15, 0),
-                name
+                name,
+                playerColor
         );
         this.lives = 3;
 
@@ -63,18 +67,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     }
 
     @Override
-    public void onPressedKeysChange(Set<KeyCode> pressedKeys){
-        if(pressedKeys.contains(KeyCode.LEFT)){
-            setMotion(3,270d);
-        } else if(pressedKeys.contains(KeyCode.RIGHT)){
-            setMotion(3,90d);
-        } else if(pressedKeys.contains(KeyCode.UP) && isGrounded){
-            setIsGrounded(false);
-            setMotion(5,180d);
-        } else if(pressedKeys.contains(KeyCode.DOWN) && !isGrounded){
-            setMotion(3,0d);
-        }
-    }
+    public abstract void onPressedKeysChange(Set<KeyCode> pressedKeys);
 
     @Override
     public void onCollision(List<Collider> list) {
@@ -120,9 +113,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     protected void setupEntities() {
         addEntity(character);
         addEntity(playerTag);
-
-        // Add weapon logic here too.
-        addEntity(character.createDefaultWeapon(new Coordinate2D(40, 20)));
+        addEntity(weapon);
     }
 
     @Override
@@ -134,6 +125,13 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
             decreateLives(1);
             respawn();
         }
+
+        // Change position if user leaves the side of the screen
+        if(sceneBorder == SceneBorder.LEFT || sceneBorder == SceneBorder.RIGHT) {
+            double x = (sceneBorder == SceneBorder.LEFT ? scene.getWidth() - getWidth() : 0);
+            double y = getAnchorLocation().getY();
+            setAnchorLocation(new Coordinate2D(x, y));
+        }
     }
 
     @Override
@@ -141,10 +139,19 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         return playerName;
     }
 
+    /**
+     * Will decreate the players' lives if lives > 0. (Lives can never be negative)
+     * If lives <= 0, nothing will happen.
+     * @param amount should be positive
+     */
     public void decreateLives(int amount) {
-        lives -= amount;
-        playerStatusIndicator.updateStatus(this);
+        if(lives - amount < 0) {
+            lives = 0; // In case it would end up below 0
+        } else {
+            lives -= (lives > 0) ? Math.max(amount, 0) : 0; // Decrease only positive amounts, and fallback to 0.
+        }
 
+        playerStatusIndicator.updateStatus(this);
         if(lives < 1) {
             // Do something here, for example restart
         }

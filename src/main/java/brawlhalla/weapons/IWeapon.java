@@ -7,5 +7,5 @@ public interface IWeapon {
     int attackSpeedCooldown = 0;
     boolean isHeldByCharacter = false;
 
-    public void attack(Direction direction);
+    public void attack(double direction);
 }

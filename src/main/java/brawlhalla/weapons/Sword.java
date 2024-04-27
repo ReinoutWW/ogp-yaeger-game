@@ -13,7 +13,7 @@ public class Sword extends Melee {
     }
 
     @Override
-    public void attack(Direction direction) {
+    public void attack(double direction) {
         // Do attack animation here
     }
 

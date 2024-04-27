@@ -7,9 +7,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class PlayerTag extends DynamicTextEntity {
-    protected PlayerTag(Coordinate2D initialLocation, String playerName) {
+    Color playerColor;
+
+    protected PlayerTag(Coordinate2D initialLocation, String playerName, Color playerColor) {
         super(initialLocation, playerName);
-        setFill(Color.RED);
+        this.playerColor = playerColor;
+        setFill(playerColor);
         setFont(Font.font("Roboto", FontWeight.BOLD, 12));
     }
 

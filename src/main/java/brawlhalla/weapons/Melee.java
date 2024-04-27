@@ -11,7 +11,7 @@ public abstract class Melee extends Weapon {
         super(resource, initialLocation, size);
     }
 
-    public abstract void attack(Direction direction);
+    public abstract void attack(double direction);
 
     public abstract brawlhalla.weapons.IWeapon pickup();
 }
