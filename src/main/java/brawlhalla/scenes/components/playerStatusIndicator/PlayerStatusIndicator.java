@@ -1,7 +1,6 @@
 package brawlhalla.scenes.components.playerStatusIndicator;
 
 import brawlhalla.player.IPlayer;
-import brawlhalla.player.Player;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.DynamicCompositeEntity;
 import javafx.scene.paint.Color;

@@ -6,7 +6,7 @@ public class PlayerScoreStatistics {
     private int hitsDealt = 0;
     private int hitsReceived = 0;
 
-    public PlayerScoreStatistics() { };
+    public PlayerScoreStatistics() { }
 
     /**
      * Increments damage if damage is greater than 0
