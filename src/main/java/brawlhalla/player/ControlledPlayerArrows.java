@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class ControlledPlayerArrows extends Player implements TimerContainer {
     private boolean curveStep;
-    MovementTimer movementTimer = new MovementTimer(110, this);
+    MovementTimer movementTimer = new MovementTimer(1, this);
 
     public ControlledPlayerArrows(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, YaegerScene scene, SpriteEntity centreIsland, Color playerColor) {
         super(initialLocation, name, character, playerStatusIndicator, scene, centreIsland, playerColor);
