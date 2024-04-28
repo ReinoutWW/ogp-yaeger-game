@@ -1,5 +1,6 @@
 package brawlhalla;
 
+import brawlhalla.scenes.EndScene;
 import brawlhalla.scenes.IslandScene;
 import com.github.hanyaeger.api.YaegerGame;
 
@@ -15,6 +16,7 @@ public class Brawhalla extends YaegerGame {
 
     @Override
     public void setupScenes() {
+        addScene(1, new EndScene());
         addScene(0, new IslandScene());
     }
 }
