@@ -3,7 +3,6 @@ package brawlhalla.player;
 import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.timer.MovementTimer;
-import brawlhalla.timer.PlatformTimer;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
