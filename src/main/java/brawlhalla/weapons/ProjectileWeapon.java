@@ -4,7 +4,7 @@ import brawlhalla.scenes.IProjectileSpawnableScene;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 
-public abstract class ProjectileWeapon extends Weapon implements IWeapon {
+public abstract class ProjectileWeapon extends Weapon{
     protected IProjectileSpawnableScene sceneToSpawnProjectiles;
 
     protected ProjectileWeapon(String resource, Coordinate2D initialLocation, IProjectileSpawnableScene scene) {
