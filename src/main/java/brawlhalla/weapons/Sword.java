@@ -13,12 +13,22 @@ public class Sword extends Melee {
     }
 
     @Override
-    public void attack(double direction) {
-        // Do attack animation here
+    public IWeapon pickup() {
+        return this;
     }
 
     @Override
-    public IWeapon pickup() {
-        return this;
+    public void attack(double direction, Coordinate2D startPosition) {
+
+    }
+
+    @Override
+    public int getDamage() {
+        return 0;
+    }
+
+    @Override
+    public int getKnockback() {
+        return 0;
     }
 }

@@ -1,6 +1,7 @@
 package brawlhalla.player;
 
 import brawlhalla.player.characters.Character;
+import brawlhalla.scenes.IProjectileSpawnableScene;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
@@ -11,7 +12,7 @@ import javafx.scene.paint.Color;
 import java.util.Set;
 
 public class ControlledPlayerWSDA extends Player {
-    public ControlledPlayerWSDA(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, YaegerScene scene, SpriteEntity centreIsland, Color playerColor) {
+    public ControlledPlayerWSDA(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene scene, SpriteEntity centreIsland, Color playerColor) {
         super(initialLocation, name, character, playerStatusIndicator, scene, centreIsland, playerColor);
     }
 
@@ -56,9 +57,9 @@ public class ControlledPlayerWSDA extends Player {
         }
 
         // Do attack
-        if (pressedKeys.contains(KeyCode.CONTROL)) {
+        if (pressedKeys.contains(KeyCode.Q)) {
             System.out.println("attack! ");
-            weapon.attack(getDirection());
+            weapon.attack(getDirection(), getAnchorLocation());
         }
     }
 

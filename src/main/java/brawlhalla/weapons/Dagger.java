@@ -13,8 +13,18 @@ public class Dagger extends Melee {
     }
 
     @Override
-    public void attack(double direction) {
+    public void attack(double direction, Coordinate2D initialLocation) {
         // Do swing with weapon
+    }
+
+    @Override
+    public int getDamage() {
+        return 0;
+    }
+
+    @Override
+    public int getKnockback() {
+        return 0;
     }
 
     @Override

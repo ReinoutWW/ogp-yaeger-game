@@ -1,10 +1,12 @@
 package brawlhalla.player;
 
+import brawlhalla.scenes.IProjectileSpawnableScene;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.weapons.IWeapon;
+import brawlhalla.weapons.Pistol;
 import brawlhalla.weapons.Weapon;
 import brawlhalla.weapons.projectiles.Projectile;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -28,19 +30,20 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
     private PlayerTag playerTag;
     private PlayerScoreStatistics playerScoreStatistics = new PlayerScoreStatistics();
     private PlayerStatusIndicator playerStatusIndicator;
-    private YaegerScene scene;
+    private IProjectileSpawnableScene islandScene;
     private SpriteEntity centreIsland;
     protected Weapon weapon;
     protected boolean isGrounded;
 
-    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, YaegerScene scene, SpriteEntity centreIsland, Color playerColor) {
+    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene islandScene, SpriteEntity centreIsland, Color playerColor) {
         super(initialLocation);
         this.playerStatusIndicator = playerStatusIndicator;
-        this.scene = scene;
+        this.islandScene = islandScene;
         this.centreIsland = centreIsland;
         this.playerName = name;
         this.character = character;
-        this.weapon = character.createDefaultWeapon(new Coordinate2D(25, 10));
+        //this.weapon = character.createDefaultWeapon(new Coordinate2D(25, 10));
+        this.weapon = new Pistol(new Coordinate2D(10, 20), islandScene);
         this.playerTag = new PlayerTag(
                 new Coordinate2D(15, 0),
                 name,
@@ -106,7 +109,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
     @Override
     public void respawn() {
         double centralIslandSpawnY = centreIsland.getAnchorLocation().getY() - centreIsland.getHeight() - this.getHeight();
-        setAnchorLocation(new Coordinate2D(scene.getWidth() / 2, centralIslandSpawnY));
+        setAnchorLocation(new Coordinate2D(islandScene.getWidth() / 2, centralIslandSpawnY));
     }
 
     @Override
@@ -128,7 +131,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
 
         // Change position if user leaves the side of the screen
         if(sceneBorder == SceneBorder.LEFT || sceneBorder == SceneBorder.RIGHT) {
-            double x = (sceneBorder == SceneBorder.LEFT ? scene.getWidth() - getWidth() : 0);
+            double x = (sceneBorder == SceneBorder.LEFT ? islandScene.getWidth() - getWidth() : 0);
             double y = getAnchorLocation().getY();
             setAnchorLocation(new Coordinate2D(x, y));
         }

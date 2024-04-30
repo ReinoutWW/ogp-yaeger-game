@@ -1,17 +1,30 @@
 package brawlhalla.weapons;
 
+import brawlhalla.scenes.IProjectileSpawnableScene;
 import brawlhalla.weapons.projectiles.PistolBullet;
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.YaegerEntity;
+import com.github.hanyaeger.api.scenes.YaegerScene;
 
 public class Pistol extends ProjectileWeapon {
 
-    public Pistol(Coordinate2D initialLocation){
-        super("resource here", initialLocation);
+    public Pistol(Coordinate2D initialLocation, IProjectileSpawnableScene scene){
+        super("sprites/weapons/shotgun.png", initialLocation, scene);
     }
 
+    @Override
+    public void attack(double direction, Coordinate2D startPosition) {
+        YaegerEntity pistolBullet = new PistolBullet(startPosition, this, direction); // insert player position as start position for Bullet
+        sceneToSpawnProjectiles.addProjectileToSpawn(pistolBullet);
+    }
 
     @Override
-    public void attack(double direction) {
-        new PistolBullet(new Coordinate2D(), this); // insert player position as start position for Bullet
+    public int getDamage() {
+        return 10;
+    }
+
+    @Override
+    public int getKnockback() {
+        return 15;
     }
 }

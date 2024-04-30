@@ -1,6 +1,7 @@
 package brawlhalla.player;
 
 import brawlhalla.player.characters.Character;
+import brawlhalla.scenes.IProjectileSpawnableScene;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.timer.MovementTimer;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -16,7 +17,7 @@ public class ControlledPlayerArrows extends Player implements TimerContainer {
     private boolean curveStep;
     MovementTimer movementTimer = new MovementTimer(1, this);
 
-    public ControlledPlayerArrows(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, YaegerScene scene, SpriteEntity centreIsland, Color playerColor) {
+    public ControlledPlayerArrows(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene scene, SpriteEntity centreIsland, Color playerColor) {
         super(initialLocation, name, character, playerStatusIndicator, scene, centreIsland, playerColor);
     }
 
@@ -65,7 +66,7 @@ public class ControlledPlayerArrows extends Player implements TimerContainer {
         // Do attack
         if (pressedKeys.contains(KeyCode.CONTROL)) {
             System.out.println("attack! ");
-            weapon.attack(getDirection());
+            weapon.attack(getDirection(), getAnchorLocation());
         }
     }
 

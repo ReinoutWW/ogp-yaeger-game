@@ -4,16 +4,20 @@ import brawlhalla.player.ControlledPlayerArrows;
 import brawlhalla.player.ControlledPlayerWSDA;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
-import brawlhalla.player.Player;
 import brawlhalla.player.characters.CactiCharacter;
-import brawlhalla.scenes.components.playerStatusIndicator.IndicatorCircle;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
+import brawlhalla.spawners.ProjectileSpawner;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.entities.EntitySpawner;
+import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import javafx.scene.paint.Color;
+import com.github.hanyaeger.api.*;
 
-public class IslandScene extends DynamicScene {
+public class IslandScene extends DynamicScene implements EntitySpawnerContainer, IProjectileSpawnableScene {
+    private ProjectileSpawner projectileSpawner;
+
     @Override
     public void setupScene() {
         setBackgroundImage("backgrounds/LevelBackground.png");
@@ -58,4 +62,13 @@ public class IslandScene extends DynamicScene {
         addEntity(playerStatusIndicator2);
     }
 
+    public void addProjectileToSpawn(YaegerEntity projectile) {
+        this.projectileSpawner.addEntityToSpawn(projectile);
+    }
+
+    @Override
+    public void setupEntitySpawners() {
+        projectileSpawner = new ProjectileSpawner();
+        addEntitySpawner(projectileSpawner);
+    }
 }
