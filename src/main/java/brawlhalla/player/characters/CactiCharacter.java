@@ -8,7 +8,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class CactiCharacter extends Character {
     public CactiCharacter() {
-        super("sprites/characters/CactiRun.png", new Coordinate2D(0, 0), new Size(50, 100), 1, 11);
+        super("sprites/characters/CactiIdle.png", new Coordinate2D(0, 0), new Size(50, 100), 1, 1);
         //setAutoCycle(1);
     }
 
@@ -16,7 +16,7 @@ public class CactiCharacter extends Character {
     @Override
     public Weapon createDefaultWeapon(Coordinate2D initialLocation) {
         // Create weapon
-        return new Dagger(initialLocation, new Size(30, 60));
+        return new Dagger(initialLocation, new Size(35, 60));
     }
 
     // Extra logic for only the CactiCharacter

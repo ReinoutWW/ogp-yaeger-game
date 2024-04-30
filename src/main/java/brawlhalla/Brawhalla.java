@@ -18,6 +18,5 @@ public class Brawhalla extends YaegerGame {
     public void setupScenes() {
         addScene(0, new IslandScene());
         addScene(1, new EndScene());
-        setActiveScene(0);
     }
 }
