@@ -4,7 +4,6 @@ import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
-import brawlhalla.weapons.IWeapon;
 import brawlhalla.weapons.Weapon;
 import brawlhalla.weapons.projectiles.Projectile;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -40,7 +39,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
         this.centreIsland = centreIsland;
         this.playerName = name;
         this.character = character;
-        this.weapon = character.createDefaultWeapon(new Coordinate2D(25, 10));
+        this.weapon = character.createDefaultWeapon(new Coordinate2D(35, 25));
         this.playerTag = new PlayerTag(
                 new Coordinate2D(15, 0),
                 name,
@@ -73,22 +72,35 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
     public void onCollision(List<Collider> list) {
         if(hitsClass(list, Island.class)) {
             // Island and platform hit
+            double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
+
             this.isGrounded = true;
             setMotion(0, 0d);
+
+            if (this.getAnchorLocation().getX() < centreIsland.getAnchorLocation().getX() && playerBottomY > centreIsland.getAnchorLocation().getY() - centreIsland.getHeight()){
+                this.setAnchorLocationX(centreIsland.getAnchorLocation().getX() - (centreIsland.getWidth() / 2) - this.getWidth() -1);
+            }
+            else if (this.getAnchorLocation().getX() > centreIsland.getAnchorLocation().getX() && playerBottomY > centreIsland.getAnchorLocation().getY() - centreIsland.getHeight()){
+                this.setAnchorLocationX(centreIsland.getAnchorLocation().getX() + (centreIsland.getWidth() / 2) + 1);
+            }
         }
 
         // there can never be more than 1 moving platform in the collided. And if there are, just pick the first.
         // Set user movement as the same as the collided moving platform.
         if(hitsClass(list, MovingPlatform.class)) { // <-- instanceof in the background
             MovingPlatform movingPlatform = getFirstOfCollidedClasses(list, MovingPlatform.class);
-
             double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
-            double playformTopY = movingPlatform.getAnchorLocation().getY();
+            double platformTopY = movingPlatform.getAnchorLocation().getY();
 
-            if(playerBottomY < playformTopY) {
+            if (playerBottomY > platformTopY && playerBottomY < platformTopY + movingPlatform.getHeight()) {
+                this.setAnchorLocationY(movingPlatform.getAnchorLocation().getY() - getHeight());
+            }
+            else if(playerBottomY < platformTopY) {
                 this.isGrounded = true;
                 moveWithMovingPlatform(movingPlatform);
             }
+
+
         }
 
         // Check if there's a Projectile.class in the list

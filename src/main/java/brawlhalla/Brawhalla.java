@@ -16,7 +16,7 @@ public class Brawhalla extends YaegerGame {
 
     @Override
     public void setupScenes() {
-        addScene(1, new EndScene());
         addScene(0, new IslandScene());
+        addScene(1, new EndScene());
     }
 }
