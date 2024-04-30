@@ -59,7 +59,8 @@ public class ControlledPlayerWSDA extends Player {
         // Do attack
         if (pressedKeys.contains(KeyCode.Q)) {
             System.out.println("attack! ");
-            weapon.attack(getDirection(), getAnchorLocation());
+
+            attack();
         }
     }
 

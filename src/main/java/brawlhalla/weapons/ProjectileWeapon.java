@@ -8,7 +8,7 @@ public abstract class ProjectileWeapon extends Weapon implements IWeapon {
     protected IProjectileSpawnableScene sceneToSpawnProjectiles;
 
     protected ProjectileWeapon(String resource, Coordinate2D initialLocation, IProjectileSpawnableScene scene) {
-        super(resource, initialLocation, new Size(30, 60));
+        super(resource, initialLocation, new Size(60, 30));
         this.sceneToSpawnProjectiles = scene;
     }
 

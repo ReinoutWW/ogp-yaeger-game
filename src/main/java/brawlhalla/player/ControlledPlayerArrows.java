@@ -66,7 +66,7 @@ public class ControlledPlayerArrows extends Player implements TimerContainer {
         // Do attack
         if (pressedKeys.contains(KeyCode.CONTROL)) {
             System.out.println("attack! ");
-            weapon.attack(getDirection(), getAnchorLocation());
+            attack();
         }
     }
 

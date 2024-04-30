@@ -7,6 +7,7 @@ import com.github.hanyaeger.api.entities.Collided;
 import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.scenes.SceneBorder;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class PistolBullet extends Projectile implements Collider, Collided, Scen
     @Override
     public void notifyBoundaryCrossing(SceneBorder sceneBorder) {
         remove();
+    }
+
+    @NonNull
+    @Override
+    public ProjectileWeapon getProjectileWeapon() {
+        return projectileWeapon;
     }
 }
 

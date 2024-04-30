@@ -5,9 +5,7 @@ import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
-import brawlhalla.weapons.IWeapon;
-import brawlhalla.weapons.Pistol;
-import brawlhalla.weapons.Weapon;
+import brawlhalla.weapons.*;
 import brawlhalla.weapons.projectiles.Projectile;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.*;
@@ -23,6 +21,8 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher {
+    private final Coordinate2D WEAPON_POSITION = new Coordinate2D(20, 40);
+
     private int lives;
     private int damageTakenMultiplier;
     private Character character;
@@ -43,7 +43,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
         this.playerName = name;
         this.character = character;
         //this.weapon = character.createDefaultWeapon(new Coordinate2D(25, 10));
-        this.weapon = new Pistol(new Coordinate2D(10, 20), islandScene);
+        this.weapon = new Pistol(WEAPON_POSITION, islandScene);
         this.playerTag = new PlayerTag(
                 new Coordinate2D(15, 0),
                 name,
@@ -61,6 +61,10 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
         this.isGrounded = isGrounded;
     }
 
+    public Coordinate2D getWeaponPosition() {
+        return WEAPON_POSITION;
+    }
+
     public int getDamageTakenMiltiplier() {
         return damageTakenMultiplier;
     }
@@ -75,48 +79,84 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
     @Override
     public void onCollision(List<Collider> list) {
         if(hitsClass(list, Island.class)) {
-            // Island and platform hit
-            double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
-
-            this.isGrounded = true;
-            setMotion(0, 0d);
-
-            if (this.getAnchorLocation().getX() < centreIsland.getAnchorLocation().getX() && playerBottomY > centreIsland.getAnchorLocation().getY() - centreIsland.getHeight()){
-                this.setAnchorLocationX(centreIsland.getAnchorLocation().getX() - (centreIsland.getWidth() / 2) - this.getWidth() -1);
-            }
-            else if (this.getAnchorLocation().getX() > centreIsland.getAnchorLocation().getX() && playerBottomY > centreIsland.getAnchorLocation().getY() - centreIsland.getHeight()){
-                this.setAnchorLocationX(centreIsland.getAnchorLocation().getX() + (centreIsland.getWidth() / 2) + 1);
-            }
+            handleIslandCollision();
         }
 
         // there can never be more than 1 moving platform in the collided. And if there are, just pick the first.
         // Set user movement as the same as the collided moving platform.
         if(hitsClass(list, MovingPlatform.class)) { // <-- instanceof in the background
-            MovingPlatform movingPlatform = getFirstOfCollidedClasses(list, MovingPlatform.class);
-            double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
-            double platformTopY = movingPlatform.getAnchorLocation().getY();
-
-            if (playerBottomY > platformTopY && playerBottomY < platformTopY + movingPlatform.getHeight()) {
-                this.setAnchorLocationY(movingPlatform.getAnchorLocation().getY() - getHeight());
-            }
-            else if(playerBottomY < platformTopY) {
-                this.isGrounded = true;
-                moveWithMovingPlatform(movingPlatform);
-            }
-
-
+            handleMovingPlatformCollision(list);
         }
 
         // Check if there's a Projectile.class in the list
         if(hitsClass(list, Projectile.class)) {
-            Projectile collidedProjectile = getFirstOfCollidedClasses(list, Projectile.class);
+            handleProjectileCollision(list);
+        }
+    }
 
+    private void handleIslandCollision() {
+        // Island and platform hit
+        double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
+
+        this.isGrounded = true;
+        setMotion(0, 0d);
+
+        if (this.getAnchorLocation().getX() < centreIsland.getAnchorLocation().getX() && playerBottomY > centreIsland.getAnchorLocation().getY() - centreIsland.getHeight()){
+            this.setAnchorLocationX(centreIsland.getAnchorLocation().getX() - (centreIsland.getWidth() / 2) - this.getWidth() -1);
+        }
+        else if (this.getAnchorLocation().getX() > centreIsland.getAnchorLocation().getX() && playerBottomY > centreIsland.getAnchorLocation().getY() - centreIsland.getHeight()){
+            this.setAnchorLocationX(centreIsland.getAnchorLocation().getX() + (centreIsland.getWidth() / 2) + 1);
+        }
+    }
+
+    private void handleMovingPlatformCollision(List<Collider> list) {
+        MovingPlatform movingPlatform = getFirstOfCollidedClasses(list, MovingPlatform.class);
+        double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
+        double platformTopY = movingPlatform.getAnchorLocation().getY();
+
+        if (playerBottomY > platformTopY && playerBottomY < platformTopY + movingPlatform.getHeight()) {
+            this.setAnchorLocationY(movingPlatform.getAnchorLocation().getY() - getHeight());
+        }
+        else if(playerBottomY < platformTopY) {
+            this.isGrounded = true;
+            moveWithMovingPlatform(movingPlatform);
+        }
+    }
+
+    private void handleProjectileCollision(List<Collider> list) {
+        IProjectile collidedProjectile = getFirstOfCollidedClasses(list, Projectile.class);
+        ProjectileWeapon weaponThatShotProjectile = collidedProjectile.getProjectileWeapon();
+
+        if(weaponThatShotProjectile != this.weapon) {
+            addDamage(weaponThatShotProjectile.getDamage());
+            doKnockback(weaponThatShotProjectile.getKnockback());
+
+            playerStatusIndicator.updateStatus(this);
             // Do something with the given projectile
         }
     }
 
+    private void doKnockback(int knockback) {
+        // TO DO: Knockback with the damage taken multiplier
+    }
+
+    private void addDamage(int damage) {
+        damageTakenMultiplier += Math.max(damage, 0);
+    }
+
     private void moveWithMovingPlatform(MovingPlatform movingPlatform) {
         setMotion(movingPlatform.getSpeed(), movingPlatform.getDirection());
+    }
+
+    protected void attack() {
+        Coordinate2D playerLocation = getAnchorLocation();
+        Coordinate2D weaponRelativePosition = getWeaponPosition();
+        Coordinate2D weaponPosition = new Coordinate2D(
+                playerLocation.getX() + weaponRelativePosition.getX(),
+                (playerLocation.getY()) + weaponRelativePosition.getY()
+        );
+
+        weapon.attack(getDirection(), weaponPosition);
     }
 
     @Override
