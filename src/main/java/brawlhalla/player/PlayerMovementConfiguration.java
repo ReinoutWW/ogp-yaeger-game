@@ -2,7 +2,10 @@ package brawlhalla.player;
 
 import javafx.scene.input.KeyCode;
 
-public class PlayerMovementConfiguration {
+/**
+ * The MovementConfiguration will
+ */
+public class PlayerMovementConfiguration implements IMovementConfiguration {
     private KeyCode up;
     private KeyCode down;
     private KeyCode left;

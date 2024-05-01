@@ -1,6 +1,6 @@
 package brawlhalla.player;
 
-import brawlhalla.scenes.IProjectileSpawnableScene;
+import brawlhalla.scenes.IEntitySpawnableScene;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.Character;
@@ -21,8 +21,11 @@ import javafx.scene.paint.Color;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The main Player logic will be here. This class will provide all collisions, movement and features
+ */
 public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher, TimerContainer {
-    private final PlayerMovementConfiguration playerMovementConfiguration;
+    private final IMovementConfiguration playerMovementConfiguration;
     private final Coordinate2D WEAPON_POSITION = new Coordinate2D(20, 40);
     private double attackDirection = Direction.RIGHT.getValue();
     private int lives;
@@ -32,7 +35,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     private PlayerTag playerTag;
     private PlayerScoreStatistics playerScoreStatistics = new PlayerScoreStatistics();
     private PlayerStatusIndicator playerStatusIndicator;
-    private IProjectileSpawnableScene islandScene;
+    private IEntitySpawnableScene islandScene;
     private SpriteEntity centreIsland;
     protected Weapon weapon;
     protected boolean isGrounded;
@@ -57,7 +60,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
     protected boolean controlsBlocked = false;
 
-    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene islandScene, SpriteEntity centreIsland, Color playerColor, PlayerMovementConfiguration movementConfiguration) {
+    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IEntitySpawnableScene islandScene, SpriteEntity centreIsland, Color playerColor, IMovementConfiguration movementConfiguration) {
         super(initialLocation);
         this.playerStatusIndicator = playerStatusIndicator;
         this.islandScene = islandScene;

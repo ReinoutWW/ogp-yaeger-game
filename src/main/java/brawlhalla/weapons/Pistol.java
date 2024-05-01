@@ -1,14 +1,13 @@
 package brawlhalla.weapons;
 
-import brawlhalla.scenes.IProjectileSpawnableScene;
+import brawlhalla.scenes.IEntitySpawnableScene;
 import brawlhalla.weapons.projectiles.PistolBullet;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
-import com.github.hanyaeger.api.scenes.YaegerScene;
 
 public class Pistol extends ProjectileWeapon {
 
-    public Pistol(Coordinate2D initialLocation, IProjectileSpawnableScene scene){
+    public Pistol(Coordinate2D initialLocation, IEntitySpawnableScene scene){
         super("sprites/weapons/shotgun.png", initialLocation, scene, 100);
     }
 

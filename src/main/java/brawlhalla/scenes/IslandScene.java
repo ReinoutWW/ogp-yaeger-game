@@ -15,7 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import com.github.hanyaeger.api.*;
 
-public class IslandScene extends DynamicScene implements EntitySpawnerContainer, IProjectileSpawnableScene {
+public class IslandScene extends DynamicScene implements EntitySpawnerContainer, IEntitySpawnableScene {
     private ProjectileSpawner projectileSpawner;
 
     @Override
