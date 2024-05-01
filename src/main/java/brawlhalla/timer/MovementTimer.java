@@ -13,6 +13,6 @@ public class MovementTimer extends Timer {
 
     @Override
     public void onAnimationUpdate(long l) {
-        player.CurveMotion();
+        player.setControlsBlocked(false);
     }
 }

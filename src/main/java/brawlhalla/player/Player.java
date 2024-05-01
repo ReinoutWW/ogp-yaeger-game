@@ -5,9 +5,11 @@ import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
+import brawlhalla.timer.MovementTimer;
 import brawlhalla.weapons.*;
 import brawlhalla.weapons.projectiles.Projectile;
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
@@ -19,7 +21,7 @@ import javafx.scene.paint.Color;
 import java.util.List;
 import java.util.Set;
 
-public abstract class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher {
+public abstract class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher, TimerContainer {
     private final Coordinate2D WEAPON_POSITION = new Coordinate2D(20, 40);
     private double attackDirection = Direction.RIGHT.getValue();
     private int lives;
@@ -33,6 +35,26 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
     private SpriteEntity centreIsland;
     protected Weapon weapon;
     protected boolean isGrounded;
+    protected MovementTimer movementTimer;
+
+    /**
+     * This method will return if the controls or movement of the player is blocked.
+     * For example, after a projectile hit, the movement will be temporarily be suspended.
+     * @return boolean
+     */
+    public boolean areControlsBlocked() {
+        return controlsBlocked;
+    }
+
+    /**
+     * Sets the controllblock
+     * @param controllBlock
+     */
+    public void setControlsBlocked(boolean controllBlock) {
+        this.controlsBlocked = controllBlock;
+    }
+
+    protected boolean controlsBlocked = false;
 
     public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene islandScene, SpriteEntity centreIsland, Color playerColor) {
         super(initialLocation);
@@ -98,7 +120,9 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
         double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
 
         this.isGrounded = true;
-        setMotion(0, 0d);
+        if(!areControlsBlocked()) {
+            setMotion(0, 0d);
+        }
 
         if (this.getAnchorLocation().getX() < centreIsland.getAnchorLocation().getX() && playerBottomY > centreIsland.getAnchorLocation().getY() - centreIsland.getHeight()){
             this.setAnchorLocationX(centreIsland.getAnchorLocation().getX() - (centreIsland.getWidth() / 2) - this.getWidth() -1);
@@ -118,7 +142,9 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
         }
         else if(playerBottomY < platformTopY) {
             this.isGrounded = true;
-            moveWithMovingPlatform(movingPlatform);
+            if(!areControlsBlocked()) {
+                moveWithMovingPlatform(movingPlatform);
+            }
         }
     }
 
@@ -127,11 +153,13 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
         ProjectileWeapon weaponThatShotProjectile = collidedProjectile.getProjectileWeapon();
 
         if(weaponThatShotProjectile != this.weapon) {
+            this.movementTimer.reset();
+            this.setControlsBlocked(true);
             addDamage(weaponThatShotProjectile.getDamage());
             doKnockback(weaponThatShotProjectile.getKnockback(), collidedProjectile.getDirection());
 
             playerStatusIndicator.updateStatus(this);
-            this.damageTakenMultiplier = 0;
+            collidedProjectile.remove();
             // Do something with the given projectile
         }
     }
@@ -184,6 +212,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
 
         if(sceneBorder == SceneBorder.BOTTOM) {
             decreateLives(1);
+            this.damageTakenMultiplier = 0;
             respawn();
         }
 
@@ -225,5 +254,9 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
             // Do something here, for example restart
         }
     }
-    public abstract void CurveMotion();
+
+    @Override
+    public void setupTimers() {
+        addTimer(movementTimer);
+    }
 }

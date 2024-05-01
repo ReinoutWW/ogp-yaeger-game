@@ -9,7 +9,6 @@ import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.spawners.ProjectileSpawner;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.EntitySpawner;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 import javafx.scene.input.KeyCode;

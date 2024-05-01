@@ -13,7 +13,7 @@ public class PlayerStatusIndicator extends DynamicCompositeEntity {
         super(initialLocation);
         this.backgroundColor = backgroundColor;
         playerNameText = new IndicatorLabel(new Coordinate2D(7.5, 7.5), "...",20);
-        playerDamageTakenMulitplierText = new IndicatorLabel(new Coordinate2D(0, 40), "...", 12);
+        playerDamageTakenMulitplierText = new IndicatorLabel(new Coordinate2D(-5, 40), "...", 12);
         playerLivesText = new IndicatorLabel(new Coordinate2D(33, 40), "...", 12);
     }
 
