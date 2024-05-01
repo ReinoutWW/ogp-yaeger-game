@@ -8,7 +8,7 @@ import com.github.hanyaeger.api.Size;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class ManCharacter extends Character {
-    public CactiCharacter() {
+    public ManCharacter() {
         super("sprites/characters/CactiIdle.png", new Coordinate2D(0, 0), new Size(50, 100), 1, 1);
         //setAutoCycle(1);
     }
