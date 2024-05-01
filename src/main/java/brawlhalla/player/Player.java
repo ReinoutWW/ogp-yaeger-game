@@ -21,7 +21,8 @@ import javafx.scene.paint.Color;
 import java.util.List;
 import java.util.Set;
 
-public abstract class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher, TimerContainer {
+public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher, TimerContainer {
+    private final PlayerMovementConfiguration playerMovementConfiguration;
     private final Coordinate2D WEAPON_POSITION = new Coordinate2D(20, 40);
     private double attackDirection = Direction.RIGHT.getValue();
     private int lives;
@@ -56,7 +57,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
 
     protected boolean controlsBlocked = false;
 
-    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene islandScene, SpriteEntity centreIsland, Color playerColor) {
+    public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene islandScene, SpriteEntity centreIsland, Color playerColor, PlayerMovementConfiguration movementConfiguration) {
         super(initialLocation);
         this.playerStatusIndicator = playerStatusIndicator;
         this.islandScene = islandScene;
@@ -72,10 +73,79 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
         );
         this.lives = 3;
 
+        playerMovementConfiguration = movementConfiguration;
+        movementTimer = new MovementTimer(1000, this);
+
         setGravityConstant(0.08);
         setFrictionConstant(0.04);
 
         playerStatusIndicator.updateStatus(this);
+    }
+
+    /**
+     * The main method that will handle all key presses.
+     * Mainly relies on the @PlayerMovementConfiguration for the active key options
+     * @param pressedKeys
+     */
+    @Override
+    public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
+        if(areControlsBlocked()) {
+            return;
+        }
+
+        if (pressedKeys.contains(playerMovementConfiguration.getUp()) && isGrounded) {
+            setIsGrounded(false);
+            setMotion(5, 180d);
+        } else if (pressedKeys.contains(playerMovementConfiguration.getDown()) && !isGrounded) {
+            setMotion(3, 0d);
+        } else if (pressedKeys.contains(playerMovementConfiguration.getLeft())) {
+            if (isGrounded) {
+                setMotion(3, 270d);
+            } else if (!isGrounded && getDirection() == 315d) {
+                setMotion(3, 315d);
+            } else if (!isGrounded) {
+                if (getDirection() == 0) {
+                    setMotion(3, 355);
+                } else if (getDirection() < 315d && getDirection() >= 180d) {
+                    setMotion(3, getDirection() + 5);
+                } else if (getDirection() > 315d || getDirection() < 180d) {
+                    setMotion(3, getDirection() - 5);
+                }
+            }
+        } else if (pressedKeys.contains(playerMovementConfiguration.getRight())) {
+            if (getDirection() == 360d) {
+                setDirection(0d);
+            }
+            if (isGrounded) {
+                setMotion(3, 90d);
+            } else if (!isGrounded && getDirection() == 45d) {
+                setMotion(3, 45d);
+            } else if (!isGrounded) {
+                if (getDirection() < 45d || getDirection() > 180d) {
+                    setMotion(3, getDirection() + 5);
+                } else if (getDirection() > 45d && getDirection() <= 180d) {
+                    setMotion(3, getDirection() - 5);
+                }
+            }
+        }
+
+        // Do attack
+        if (pressedKeys.contains(playerMovementConfiguration.getAttack())) {
+            System.out.println("attack! ");
+            attack();
+        }
+
+        double currentDirection = getDirection();
+
+        // Check if the attack is between
+        saveAttackDirection(currentDirection);
+    }
+
+    private void saveAttackDirection(double currentDirection) {
+        if (DirectionHelper.isBetweenCoordinates(Direction.UP_LEFT.getValue(), Direction.DOWN_LEFT.getValue(), currentDirection) ||
+                DirectionHelper.isBetweenCoordinates(Direction.DOWN_RIGHT.getValue(), Direction.UP_RIGHT.getValue(), currentDirection)) {
+            setAttackDirection(getDirection());
+        }
     }
 
     public void setIsGrounded(boolean isGrounded) {
@@ -93,9 +163,6 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
     public int getLives() {
         return lives;
     }
-
-    @Override
-    public abstract void onPressedKeysChange(Set<KeyCode> pressedKeys);
 
     @Override
     public void onCollision(List<Collider> list) {
