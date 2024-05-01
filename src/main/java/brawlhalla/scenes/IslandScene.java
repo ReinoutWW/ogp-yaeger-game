@@ -1,8 +1,6 @@
 package brawlhalla.scenes;
 
 import brawlhalla.player.ControlledPlayer;
-import brawlhalla.player.ControlledPlayerArrows;
-import brawlhalla.player.ControlledPlayerWSDA;
 import brawlhalla.player.PlayerMovementConfiguration;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
