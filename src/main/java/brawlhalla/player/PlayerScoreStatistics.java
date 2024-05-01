@@ -1,5 +1,9 @@
 package brawlhalla.player;
 
+/**
+ * This will track the score from a player, seperated in different metrics.
+ * Example: Damage dealt/received
+ */
 public class PlayerScoreStatistics {
     private int damageDealt = 0;
     private int DamageReceived = 0;

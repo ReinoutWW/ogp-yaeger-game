@@ -1,6 +1,6 @@
 package brawlhalla.scenes;
 
-import brawlhalla.player.ControlledPlayer;
+import brawlhalla.player.Player;
 import brawlhalla.player.PlayerMovementConfiguration;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
@@ -15,7 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import com.github.hanyaeger.api.*;
 
-public class IslandScene extends DynamicScene implements EntitySpawnerContainer, IProjectileSpawnableScene {
+public class IslandScene extends DynamicScene implements EntitySpawnerContainer, IEntitySpawnableScene {
     private ProjectileSpawner projectileSpawner;
 
     @Override
@@ -31,7 +31,7 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
         var playerStatusIndicator1 = new PlayerStatusIndicator(new Coordinate2D(getWidth() - 100, 10), Color.RED);
         var playerStatusIndicator2 = new PlayerStatusIndicator(new Coordinate2D(50, 10), Color.BLUE);
 
-        var player1 = new ControlledPlayer(
+        var player1 = new Player(
                 new Coordinate2D(getWidth() / 2, getHeight() /2),
                 "RG1",
                 new CactiCharacter(),
@@ -48,7 +48,7 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
                 )
         );
 
-        var player2 = new ControlledPlayer(
+        var player2 = new Player(
                 new Coordinate2D(getWidth() / 2 + 30, getHeight() /2),
                 "RG2",
                 new CactiCharacter(),
