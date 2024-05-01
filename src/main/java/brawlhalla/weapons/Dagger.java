@@ -6,7 +6,7 @@ import com.github.hanyaeger.api.entities.Direction;
 
 public class Dagger extends Melee {
     public Dagger(Coordinate2D initialLocation, Size size) {
-        super("sprites/weapons/Dagger.png", initialLocation, size);
+        super("sprites/weapons/Dagger.png", initialLocation, size, 50);
         attackSpeedCooldown = 5;
         verticalDamage = 10;
         horizontalDamage = 15;

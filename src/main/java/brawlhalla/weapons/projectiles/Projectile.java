@@ -13,4 +13,9 @@ public abstract class Projectile extends DynamicSpriteEntity implements IProject
         super(resource, initialLocation, size);
         this.projectileWeapon = projectileWeapon;
     }
+
+    @Override
+    public double getDirection() {
+        return super.getDirection();
+    }
 }

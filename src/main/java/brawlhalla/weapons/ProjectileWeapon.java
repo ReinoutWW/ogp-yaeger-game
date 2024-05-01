@@ -7,8 +7,8 @@ import com.github.hanyaeger.api.Size;
 public abstract class ProjectileWeapon extends Weapon{
     protected IProjectileSpawnableScene sceneToSpawnProjectiles;
 
-    protected ProjectileWeapon(String resource, Coordinate2D initialLocation, IProjectileSpawnableScene scene) {
-        super(resource, initialLocation, new Size(60, 30));
+    protected ProjectileWeapon(String resource, Coordinate2D initialLocation, IProjectileSpawnableScene scene, long attackSpeedCooldown) {
+        super(resource, initialLocation, new Size(60, 30), attackSpeedCooldown);
         this.sceneToSpawnProjectiles = scene;
     }
 

@@ -129,15 +129,21 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
 
         if(weaponThatShotProjectile != this.weapon) {
             addDamage(weaponThatShotProjectile.getDamage());
-            doKnockback(weaponThatShotProjectile.getKnockback());
+            doKnockback(weaponThatShotProjectile.getKnockback(), collidedProjectile.getDirection());
 
             playerStatusIndicator.updateStatus(this);
+            this.damageTakenMultiplier = 0;
             // Do something with the given projectile
         }
     }
 
-    private void doKnockback(int knockback) {
-        // TO DO: Knockback with the damage taken multiplier
+    private void doKnockback(int knockback, double direction) {
+        // To do: add knockback block timer
+
+        float defaultAmount = 1; // Default 100%
+        float knockbackMultiplier = defaultAmount + ((float) damageTakenMultiplier / 100); // default + multiplier
+        float knockbackPerformed = knockback * knockbackMultiplier; // calculate force with multiplier
+        setMotion(knockbackPerformed, direction);
     }
 
     private void addDamage(int damage) {
