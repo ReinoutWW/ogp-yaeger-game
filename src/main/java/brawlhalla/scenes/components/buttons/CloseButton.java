@@ -12,20 +12,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class AgainButton extends TextEntity implements MouseButtonPressedListener, MouseEnterListener, MouseExitListener {
+public class CloseButton extends TextEntity implements MouseButtonPressedListener, MouseEnterListener, MouseExitListener {
     private Brawhalla brawhalla;
 
-    public AgainButton(Coordinate2D initialLocation, Brawhalla brawhalla) {
+    public CloseButton(Coordinate2D initialLocation, Brawhalla brawhalla) {
         super(initialLocation);
         this.brawhalla = brawhalla;
-        setText("Play Again");
+        setText("Close Game");
         setFill(Color.PURPLE);
         setFont(Font.font("Roboto", FontWeight.BOLD, 30));
     }
 
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
-        brawhalla.setActiveScene(0);
+        brawhalla.quit();
     }
 
     @Override

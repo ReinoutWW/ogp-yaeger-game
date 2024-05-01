@@ -1,5 +1,6 @@
 package brawlhalla.scenes;
 
+import brawlhalla.Brawhalla;
 import brawlhalla.player.Player;
 import brawlhalla.player.PlayerMovementConfiguration;
 import brawlhalla.scenes.components.Island;
@@ -17,6 +18,11 @@ import com.github.hanyaeger.api.*;
 
 public class IslandScene extends DynamicScene implements EntitySpawnerContainer, IEntitySpawnableScene {
     private ProjectileSpawner projectileSpawner;
+    private Brawhalla brawhalla;
+
+    public IslandScene(Brawhalla brawhalla) {
+        this.brawhalla = brawhalla;
+    }
 
     @Override
     public void setupScene() {
