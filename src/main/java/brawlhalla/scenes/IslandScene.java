@@ -62,7 +62,7 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
                         KeyCode.S,
                         KeyCode.A,
                         KeyCode.D,
-                        KeyCode.Q,
+                        KeyCode.Q
                 )
         );
 

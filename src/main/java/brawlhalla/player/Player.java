@@ -161,7 +161,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
                 (playerLocation.getY()) + weaponRelativePosition.getY()
         );
 
-        weapon.attack(attackDirection, weaponPosition);
+        weapon.attack(getAttackDirection(), weaponPosition);
     }
 
     @Override
@@ -193,6 +193,14 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
             double y = getAnchorLocation().getY();
             setAnchorLocation(new Coordinate2D(x, y));
         }
+    }
+
+    public double getAttackDirection() {
+        return attackDirection;
+    }
+
+    public void setAttackDirection(double direction) {
+        attackDirection = direction;
     }
 
     @Override

@@ -4,8 +4,10 @@ import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.IProjectileSpawnableScene;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.timer.MovementTimer;
+import brawlhalla.yaegerExtension.DirectionHelper;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.TimerContainer;
+import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -68,6 +70,18 @@ public class ControlledPlayer extends Player implements TimerContainer {
         if (pressedKeys.contains(playerMovementConfiguration.getAttack())) {
             System.out.println("attack! ");
             attack();
+        }
+
+        double currentDirection = getDirection();
+
+        // Check if the attack is between
+        saveAttackDirection(currentDirection);
+    }
+
+    private void saveAttackDirection(double currentDirection) {
+        if (DirectionHelper.isBetweenCoordinates(Direction.UP_LEFT.getValue(), Direction.DOWN_LEFT.getValue(), currentDirection) ||
+            DirectionHelper.isBetweenCoordinates(Direction.DOWN_RIGHT.getValue(), Direction.UP_RIGHT.getValue(), currentDirection)) {
+            setAttackDirection(getDirection());
         }
     }
 
