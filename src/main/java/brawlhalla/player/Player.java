@@ -11,7 +11,6 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import com.github.hanyaeger.api.scenes.YaegerScene;
 import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import brawlhalla.yaegerExtension.*;
@@ -22,7 +21,7 @@ import java.util.Set;
 
 public abstract class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher {
     private final Coordinate2D WEAPON_POSITION = new Coordinate2D(20, 40);
-
+    private double attackDirection = Direction.RIGHT.getValue();
     private int lives;
     private int damageTakenMultiplier;
     private Character character;
@@ -162,7 +161,7 @@ public abstract class Player extends DynamicCompositeEntity implements IPlayer, 
                 (playerLocation.getY()) + weaponRelativePosition.getY()
         );
 
-        weapon.attack(getDirection(), weaponPosition);
+        weapon.attack(attackDirection, weaponPosition);
     }
 
     @Override

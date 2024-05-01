@@ -1,7 +1,9 @@
 package brawlhalla.scenes;
 
+import brawlhalla.player.ControlledPlayer;
 import brawlhalla.player.ControlledPlayerArrows;
 import brawlhalla.player.ControlledPlayerWSDA;
+import brawlhalla.player.PlayerMovementConfiguration;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.CactiCharacter;
@@ -12,6 +14,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.EntitySpawner;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 import com.github.hanyaeger.api.scenes.DynamicScene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import com.github.hanyaeger.api.*;
 
@@ -31,24 +34,38 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
         var playerStatusIndicator1 = new PlayerStatusIndicator(new Coordinate2D(getWidth() - 100, 10), Color.RED);
         var playerStatusIndicator2 = new PlayerStatusIndicator(new Coordinate2D(50, 10), Color.BLUE);
 
-        var player1 = new ControlledPlayerWSDA(
+        var player1 = new ControlledPlayer(
                 new Coordinate2D(getWidth() / 2, getHeight() /2),
                 "RG1",
                 new CactiCharacter(),
                 playerStatusIndicator1,
                 this,
                 island,
-                Color.RED
+                Color.RED,
+                new PlayerMovementConfiguration(
+                        KeyCode.UP,
+                        KeyCode.DOWN,
+                        KeyCode.LEFT,
+                        KeyCode.RIGHT,
+                        KeyCode.CONTROL
+                )
         );
 
-        var player2 = new ControlledPlayerArrows(
+        var player2 = new ControlledPlayer(
                 new Coordinate2D(getWidth() / 2 + 30, getHeight() /2),
                 "RG2",
                 new CactiCharacter(),
                 playerStatusIndicator2,
                 this,
                 island,
-                Color.BLUE
+                Color.BLUE,
+                new PlayerMovementConfiguration(
+                        KeyCode.W,
+                        KeyCode.S,
+                        KeyCode.A,
+                        KeyCode.D,
+                        KeyCode.Q,
+                )
         );
 
 

@@ -7,28 +7,29 @@ import brawlhalla.timer.MovementTimer;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
-import com.github.hanyaeger.api.scenes.YaegerScene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 import java.util.Set;
 
-public class ControlledPlayerArrows extends Player implements TimerContainer {
+public class ControlledPlayer extends Player implements TimerContainer {
     private boolean curveStep;
+    private final PlayerMovementConfiguration playerMovementConfiguration;
     MovementTimer movementTimer = new MovementTimer(1, this);
 
-    public ControlledPlayerArrows(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene scene, SpriteEntity centreIsland, Color playerColor) {
+    public ControlledPlayer(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IProjectileSpawnableScene scene, SpriteEntity centreIsland, Color playerColor, PlayerMovementConfiguration movementConfiguration) {
         super(initialLocation, name, character, playerStatusIndicator, scene, centreIsland, playerColor);
+        playerMovementConfiguration = movementConfiguration;
     }
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-        if (pressedKeys.contains(KeyCode.UP) && isGrounded) {
+        if (pressedKeys.contains(playerMovementConfiguration.getUp()) && isGrounded) {
             setIsGrounded(false);
             setMotion(5, 180d);
-        } else if (pressedKeys.contains(KeyCode.DOWN) && !isGrounded) {
+        } else if (pressedKeys.contains(playerMovementConfiguration.getDown()) && !isGrounded) {
             setMotion(3, 0d);
-        } else if (pressedKeys.contains(KeyCode.LEFT)) {
+        } else if (pressedKeys.contains(playerMovementConfiguration.getLeft())) {
             movementTimer.reset();
 
             if (isGrounded) {
@@ -44,7 +45,7 @@ public class ControlledPlayerArrows extends Player implements TimerContainer {
                     setMotion(3, getDirection() - 5);
                 }
             }
-        } else if (pressedKeys.contains(KeyCode.RIGHT)) {
+        } else if (pressedKeys.contains(playerMovementConfiguration.getRight())) {
             movementTimer.reset();
 
             if (getDirection() == 360d) {
@@ -64,7 +65,7 @@ public class ControlledPlayerArrows extends Player implements TimerContainer {
         }
 
         // Do attack
-        if (pressedKeys.contains(KeyCode.CONTROL)) {
+        if (pressedKeys.contains(playerMovementConfiguration.getAttack())) {
             System.out.println("attack! ");
             attack();
         }
