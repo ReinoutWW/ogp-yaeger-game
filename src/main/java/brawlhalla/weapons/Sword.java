@@ -10,11 +10,6 @@ public class Sword extends Melee {
     }
 
     @Override
-    public IWeapon pickup() {
-        return this;
-    }
-
-    @Override
     public void attack(double direction, Coordinate2D startPosition) {
         // Logic for attacking here
     }

@@ -7,10 +7,6 @@ import brawlhalla.powerup.SpeedBoostPowerUp;
 import brawlhalla.yaegerExtension.CoordinationHelper;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.EntitySpawner;
-import com.github.hanyaeger.api.entities.YaegerEntity;
-
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Random;
 
 public class PowerUpSpawner extends EntitySpawner {

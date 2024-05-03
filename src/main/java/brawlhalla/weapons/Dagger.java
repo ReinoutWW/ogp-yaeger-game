@@ -25,11 +25,6 @@ public class Dagger extends Melee {
     }
 
     @Override
-    public IWeapon pickup() {
-        return this;
-    }
-
-    @Override
     public Weapon cloneWeapon() {
         return new Dagger(this.getAnchorLocation());
     }

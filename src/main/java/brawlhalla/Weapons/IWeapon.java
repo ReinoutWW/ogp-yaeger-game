@@ -4,9 +4,6 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 
 public interface IWeapon {
-    int attackSpeedCooldown = 0;
-    boolean isHeldByCharacter = false;
-
     void setReadyForAttack(boolean ready);
 
     void attack(double direction, Coordinate2D startPosition);
