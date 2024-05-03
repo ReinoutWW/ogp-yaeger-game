@@ -19,6 +19,7 @@ import brawlhalla.yaegerExtension.*;
 import javafx.scene.paint.Color;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -37,7 +38,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     private PlayerStatusIndicator playerStatusIndicator;
     private IEntitySpawnableScene islandScene;
     private SpriteEntity centreIsland;
-    protected Weapon weapon;
+    protected Optional<Weapon> weapon;
     protected boolean isGrounded;
     protected MovementTimer movementTimer;
 
@@ -67,7 +68,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         this.centreIsland = centreIsland;
         this.playerName = name;
         this.character = character;
-        this.weapon = character.createDefaultWeapon(WEAPON_POSITION, islandScene);
+        this.weapon = Optional.of(character.createDefaultWeapon(WEAPON_POSITION, islandScene));
         this.playerTag = new PlayerTag(
                 new Coordinate2D(15, 0),
                 name,
@@ -221,7 +222,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         IProjectile collidedProjectile = getFirstOfCollidedClasses(list, Projectile.class);
         ProjectileWeapon weaponThatShotProjectile = collidedProjectile.getProjectileWeapon();
 
-        if(weaponThatShotProjectile != this.weapon) {
+        if(weaponThatShotProjectile != this.weapon.orElse(null)) {
             this.movementTimer.reset();
             this.setControlsBlocked(true);
             addDamage(weaponThatShotProjectile.getDamage());
@@ -258,7 +259,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
                 (playerLocation.getY()) + weaponRelativePosition.getY()
         );
 
-        weapon.attack(getAttackDirection(), weaponPosition);
+        weapon.ifPresent(value -> value.attack(getAttackDirection(), weaponPosition));
     }
 
     @Override
@@ -271,7 +272,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     protected void setupEntities() {
         addEntity(character);
         addEntity(playerTag);
-        addEntity(weapon);
+        weapon.ifPresent(this::addEntity); // Method reference to create compact lambda expressions
     }
 
     @Override
@@ -299,7 +300,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
     public void setAttackDirection(double direction) {
         attackDirection = direction;
-        weapon.setAttackDirection(direction);
+        weapon.ifPresent(weapon -> weapon.setAttackDirection(direction));
     }
 
     @Override
