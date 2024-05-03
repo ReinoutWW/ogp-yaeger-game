@@ -18,14 +18,4 @@ public class PlayerTag extends DynamicTextEntity {
         setFill(playerColor);
         setFont(Font.font("Roboto", FontWeight.BOLD, 12));
     }
-
-    /**
-     * This will show the user feedback if the player takes damage
-     * The name will show red for an x duration time
-     * @param duration for the damage show duration
-     */
-    public void showDamage(int duration) {
-        // Set timer to reset with duration
-        setFill(Color.RED);
-    }
 }
