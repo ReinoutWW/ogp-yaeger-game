@@ -15,7 +15,7 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
  * Sprites: Every sprite should have an image providing 1 row and 2 columns to provide visual feedback to the user on where the weapon is pointing.
  *  Main logic will be provided by the weapon class and is open for extension.
  */
-public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, Collider, TimerContainer {
+public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, IPowerUpWeaponKnockBack, IPowerUpWeaponDamage, Collider, TimerContainer {
     protected long attackSpeedCooldown;
     protected boolean isHeldByCharacter;
     protected boolean readyForAttack = true;
