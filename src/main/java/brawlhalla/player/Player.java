@@ -103,7 +103,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         double movementSpeed = 3 * speedBoostMultiplier;
 
         if (pressedKeys.contains(playerMovementConfiguration.getUp()) && isGrounded) {
-            setIsGrounded(false);
+            isGrounded = false;
             setMotion(movementSpeed, 180d);
         } else if (pressedKeys.contains(playerMovementConfiguration.getDown()) && !isGrounded) {
             setMotion(movementSpeed, 0d);
@@ -161,14 +161,6 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
     }
 
-    public void setIsGrounded(boolean isGrounded) {
-        this.isGrounded = isGrounded;
-    }
-
-    public Coordinate2D getWeaponPosition() {
-        return WEAPON_POSITION;
-    }
-
     public int getDamageTakenMultiplier() {
         return damageTakenMultiplier;
     }
@@ -216,7 +208,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
         // there can never be more than 1 moving platform in the collided. And if there are, just pick the first.
         // Set user movement as the same as the collided moving platform.
-        if(hitsClass(list, MovingPlatform.class)) { // <-- instanceof in the background
+        if(hitsClass(list, MovingPlatform.class) && !areControlsBlocked()) { // <-- instanceof in the background
             handleMovingPlatformCollision(list);
         }
 
@@ -320,7 +312,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
     protected void attack() {
         Coordinate2D playerLocation = getAnchorLocation();
-        Coordinate2D weaponRelativePosition = getWeaponPosition();
+        Coordinate2D weaponRelativePosition = WEAPON_POSITION;
         Coordinate2D weaponPosition = new Coordinate2D(
                 playerLocation.getX() + weaponRelativePosition.getX(),
                 (playerLocation.getY()) + weaponRelativePosition.getY()
