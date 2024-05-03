@@ -1,5 +1,6 @@
 package brawlhalla.player;
 
+import brawlhalla.Scenes;
 import brawlhalla.scenes.IEntitySpawnableScene;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
@@ -389,6 +390,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         playerStatusIndicator.updateStatus(this);
         if(lives < 1) {
             // Do something here, for example restart
+            islandScene.setActiveScene(Scenes.END);
         }
     }
 

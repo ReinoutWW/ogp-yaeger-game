@@ -1,6 +1,7 @@
 package brawlhalla.scenes;
 
 import brawlhalla.Brawhalla;
+import brawlhalla.Scenes;
 import brawlhalla.player.Player;
 import brawlhalla.player.PlayerMovementConfiguration;
 import brawlhalla.player.characters.FoxCharacter;
@@ -27,6 +28,10 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
 
     public IslandScene(Brawhalla brawhalla) {
         this.brawhalla = brawhalla;
+    }
+
+    public void setActiveScene(Scenes scene) {
+        brawhalla.setActiveScene(scene.index);
     }
 
     @Override

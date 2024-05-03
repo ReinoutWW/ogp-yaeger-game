@@ -1,6 +1,7 @@
 package brawlhalla.scenes.components.buttons;
 
 import brawlhalla.Brawhalla;
+import brawlhalla.Scenes;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
@@ -26,7 +27,7 @@ public class StartButton extends TextEntity implements MouseButtonPressedListene
 
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
-        brawhalla.setActiveScene(1);
+        brawhalla.setActiveScene(Scenes.ISLAND.index);
     }
 
     @Override
