@@ -22,4 +22,10 @@ public interface IWeapon {
      * For example: 1 = 1 speed in yaeger
      */
     int getKnockback();
+
+    /**
+     * Give the user visual feedback on where the weapon is pointing (sprite index for example)
+     * @param direction the given direction
+     */
+    void setAttackDirection(double direction);
 }

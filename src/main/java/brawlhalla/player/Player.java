@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher, TimerContainer {
     private final IMovementConfiguration playerMovementConfiguration;
-    private final Coordinate2D WEAPON_POSITION = new Coordinate2D(20, 40);
+    private final Coordinate2D WEAPON_POSITION = new Coordinate2D(0, 50);
     private double attackDirection = Direction.RIGHT.getValue();
     private int lives;
     private int damageTakenMultiplier;
@@ -67,8 +67,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         this.centreIsland = centreIsland;
         this.playerName = name;
         this.character = character;
-        //this.weapon = character.createDefaultWeapon(new Coordinate2D(25, 10));
-        this.weapon = new Pistol(WEAPON_POSITION, islandScene);
+        this.weapon = character.createDefaultWeapon(WEAPON_POSITION, islandScene);
         this.playerTag = new PlayerTag(
                 new Coordinate2D(15, 0),
                 name,
@@ -300,6 +299,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
 
     public void setAttackDirection(double direction) {
         attackDirection = direction;
+        weapon.setAttackDirection(direction);
     }
 
     @Override

@@ -5,10 +5,11 @@ import brawlhalla.weapons.projectiles.PistolBullet;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 
-public class Pistol extends ProjectileWeapon {
+public class Shotgun extends ProjectileWeapon {
 
-    public Pistol(Coordinate2D initialLocation, IEntitySpawnableScene scene){
-        super("sprites/weapons/weapon_pistol.png", initialLocation, scene, 100);
+    public Shotgun(Coordinate2D initialLocation, IEntitySpawnableScene scene){
+        super("sprites/weapons/weapon_shotgun.png", initialLocation, scene, 100);
+
     }
 
     @Override
