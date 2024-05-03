@@ -11,6 +11,7 @@ import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.CactiCharacter;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
+import brawlhalla.spawners.PowerUpSpawner;
 import brawlhalla.spawners.ProjectileSpawner;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
@@ -99,5 +100,6 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
     public void setupEntitySpawners() {
         projectileSpawner = new ProjectileSpawner();
         addEntitySpawner(projectileSpawner);
+        addEntitySpawner(new PowerUpSpawner(getWidth(), getHeight()));
     }
 }

@@ -15,6 +15,8 @@ import java.util.List;
 public abstract class PowerUp extends DynamicSpriteEntity implements TimerContainer, ClassCollided {
     private PowerUpTimer powerUpTimer;
     protected IPowerUpPlayer player;
+    private int cyclesIdle = 0;
+    private final int MAX_CYCLES_IDLE = 5;
 
     protected PowerUp(String resource, Coordinate2D initialLocation) {
         super(resource, initialLocation, new Size(30, 40), 1, 7);
@@ -60,10 +62,16 @@ public abstract class PowerUp extends DynamicSpriteEntity implements TimerContai
 
     /**
      * End will be called 3 seconds after consume is called.
+     * The Power Up will last for an x amount of cycles (times triggered, but not picked up)
+     * When the max is exceeded, the PowerUp will despawn.
      */
     public void reset() {
         if(player != null) {
             end();
+        } else if(cyclesIdle < MAX_CYCLES_IDLE) {
+            cyclesIdle += 1;
+        } else {
+            remove();
         }
     }
 }
