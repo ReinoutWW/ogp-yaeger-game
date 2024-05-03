@@ -1,7 +1,5 @@
 package brawlhalla.timer;
 
-import brawlhalla.player.Player;
-import brawlhalla.weapons.IWeapon;
 import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Timer;
 
@@ -15,6 +13,7 @@ public class PickupTimer extends Timer {
 
     @Override
     public void onAnimationUpdate(long l) {
-        weapon.setIsReadyForPickup(true);
+        weapon.setIsPickupBlocked(false);
+        System.out.println("Settings pickup blocked to: " + false + " for weapon: " + weapon);
     }
 }

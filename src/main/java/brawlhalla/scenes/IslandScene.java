@@ -5,6 +5,7 @@ import brawlhalla.player.Player;
 import brawlhalla.player.PlayerMovementConfiguration;
 import brawlhalla.player.characters.FoxCharacter;
 import brawlhalla.player.characters.ManCharacter;
+import brawlhalla.powerup.DamageBoostPowerUp;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
 import brawlhalla.player.characters.CactiCharacter;
@@ -75,6 +76,9 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
                 )
         );
 
+        var damageBoost = new DamageBoostPowerUp(new Coordinate2D(getWidth() / 2 - 100, getHeight() / 2));
+
+        addEntity(damageBoost);
 
         island.setAnchorPoint(AnchorPoint.BOTTOM_CENTER);
         addEntity(island);

@@ -7,9 +7,6 @@ import com.github.hanyaeger.api.entities.Direction;
 public class Dagger extends Melee {
     public Dagger(Coordinate2D initialLocation) {
         super("sprites/weapons/melee_dagger.png", initialLocation, new Size(35, 60), 50);
-        attackSpeedCooldown = 5;
-        verticalDamage = 10;
-        horizontalDamage = 15;
     }
 
     @Override
@@ -18,12 +15,12 @@ public class Dagger extends Melee {
     }
 
     @Override
-    public int getDamage() {
+    public float getDamage() {
         return 0;
     }
 
     @Override
-    public int getKnockback() {
+    public float getKnockback() {
         return 0;
     }
 

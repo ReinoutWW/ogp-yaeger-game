@@ -13,12 +13,10 @@ import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.*;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
-import com.github.hanyaeger.api.userinput.KeyListener;
 import javafx.scene.input.KeyCode;
 import brawlhalla.yaegerExtension.*;
 import javafx.scene.paint.Color;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -26,7 +24,7 @@ import java.util.Set;
 /**
  * The main Player logic will be here. This class will provide all collisions, movement and features
  */
-public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian, ClassCollided, Collider, KeyListener, SceneBorderTouchingWatcher, TimerContainer {
+public class Player extends DynamicCompositeEntity implements IPlayer, TimerContainer, SceneBorderTouchingWatcher, ClassCollided, Collider {
     private final IMovementConfiguration playerMovementConfiguration;
     private final Coordinate2D WEAPON_POSITION = new Coordinate2D(0, 50);
     private double attackDirection = Direction.RIGHT.getValue();
@@ -42,6 +40,8 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     protected Optional<Weapon> weapon;
     protected boolean isGrounded;
     protected MovementTimer movementTimer;
+
+    private int speedBoostMultiplier = 100;
 
     /**
      * This method will return if the controls or movement of the player is blocked.
@@ -98,23 +98,26 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
             return;
         }
 
+        double speedBoostMultiplier = (double)this.speedBoostMultiplier / 100;
+        double movementSpeed = 3 * speedBoostMultiplier;
+
         if (pressedKeys.contains(playerMovementConfiguration.getUp()) && isGrounded) {
             setIsGrounded(false);
-            setMotion(5, 180d);
+            setMotion(movementSpeed, 180d);
         } else if (pressedKeys.contains(playerMovementConfiguration.getDown()) && !isGrounded) {
-            setMotion(3, 0d);
+            setMotion(movementSpeed, 0d);
         } else if (pressedKeys.contains(playerMovementConfiguration.getLeft())) {
             if (isGrounded) {
-                setMotion(3, 270d);
+                setMotion(movementSpeed, 270d);
             } else if (!isGrounded && getDirection() == 315d) {
-                setMotion(3, 315d);
+                setMotion(movementSpeed, 315d);
             } else if (!isGrounded) {
                 if (getDirection() == 0) {
-                    setMotion(3, 355);
+                    setMotion(movementSpeed, 355);
                 } else if (getDirection() < 315d && getDirection() >= 180d) {
-                    setMotion(3, getDirection() + 5);
+                    setMotion(movementSpeed, getDirection() + 5);
                 } else if (getDirection() > 315d || getDirection() < 180d) {
-                    setMotion(3, getDirection() - 5);
+                    setMotion(movementSpeed, getDirection() - 5);
                 }
             }
         } else if (pressedKeys.contains(playerMovementConfiguration.getRight())) {
@@ -122,14 +125,14 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
                 setDirection(0d);
             }
             if (isGrounded) {
-                setMotion(3, 90d);
+                setMotion(movementSpeed, 90d);
             } else if (!isGrounded && getDirection() == 45d) {
-                setMotion(3, 45d);
+                setMotion(movementSpeed, 45d);
             } else if (!isGrounded) {
                 if (getDirection() < 45d || getDirection() > 180d) {
-                    setMotion(3, getDirection() + 5);
+                    setMotion(movementSpeed, getDirection() + 5);
                 } else if (getDirection() > 45d && getDirection() <= 180d) {
-                    setMotion(3, getDirection() - 5);
+                    setMotion(movementSpeed, getDirection() - 5);
                 }
             }
         }
@@ -199,7 +202,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
             );
 
             spawnableWeapon.setIsHeldByCharacter(false);
-            spawnableWeapon.setPickupDelayBlock();
+            spawnableWeapon.startPickupBlockDelay();
             islandScene.addEntityToSpawn(spawnableWeapon);
         }
     }
@@ -297,7 +300,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         }
     }
 
-    private void doKnockback(int knockback, double direction) {
+    private void doKnockback(float knockback, double direction) {
         // To do: add knockback block timer
 
         float defaultAmount = 1; // Default 100%
@@ -306,8 +309,8 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         setMotion(knockbackPerformed, direction);
     }
 
-    private void addDamage(int damage) {
-        damageTakenMultiplier += Math.max(damage, 0);
+    private void addDamage(float damage) {
+        damageTakenMultiplier += (int) Math.max(damage, 0);
     }
 
     private void moveWithMovingPlatform(MovingPlatform movingPlatform) {
@@ -392,5 +395,35 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
     @Override
     public void setupTimers() {
         addTimer(movementTimer);
+    }
+
+    @Override
+    public void increaseWeaponDamage(int percentage) {
+        weapon.ifPresent(weapon1 -> weapon1.increaseDamage(percentage));
+    }
+
+    @Override
+    public void resetWeaponDamage() {
+        weapon.ifPresent(Weapon::resetDamage);
+    }
+
+    @Override
+    public void increaseKnockbackBoost(int percentage) {
+        weapon.ifPresent(weapon1 -> weapon1.increaseKnockback(percentage));
+    }
+
+    @Override
+    public void resetKnockbackBoost() {
+        weapon.ifPresent(Weapon::resetKnockback);
+    }
+
+    @Override
+    public void increaseSpeedBoost(int percentage) {
+        speedBoostMultiplier += Math.max(percentage, 0);
+    }
+
+    @Override
+    public void resetSpeedBoost() {
+        speedBoostMultiplier = 100;
     }
 }

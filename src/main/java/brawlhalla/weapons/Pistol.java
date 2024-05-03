@@ -25,7 +25,7 @@ public class Pistol extends ProjectileWeapon {
      * For example: 10 = 10% increase
      */
     @Override
-    public int getDamage() {
+    public float getDamage() {
         return 10;
     }
 
@@ -34,7 +34,7 @@ public class Pistol extends ProjectileWeapon {
      * For example: 1 = 1 speed in yaeger
      */
     @Override
-    public int getKnockback() {
+    public float getKnockback() {
         return 1;
     }
 

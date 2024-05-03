@@ -8,7 +8,6 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.Timer;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.Collider;
-import com.github.hanyaeger.api.entities.Direction;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 
 /**
@@ -20,13 +19,17 @@ public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, Col
     protected long attackSpeedCooldown;
     protected boolean isHeldByCharacter;
     protected boolean readyForAttack = true;
-    private Timer pickupTimer;
-    private boolean isReadyForPickup = false;
+    private final Timer pickupTimer;
+    private final Timer weaponCooldownTimer;
+    private boolean isPickupBlocked = true;
+    protected int damageMultiplier = 100;
+    protected int knockbackMultiplier = 100;
 
     protected Weapon(String resource, Coordinate2D initialLocation, Size size, long attackSpeedCooldown) {
         super(resource, initialLocation, size, 1, 2);
         this.attackSpeedCooldown = attackSpeedCooldown;
         pickupTimer = new PickupTimer(2000, this);
+        weaponCooldownTimer = new WeaponCooldownTimer(attackSpeedCooldown, this);
     }
 
     public void setIsHeldByCharacter(boolean isHeldByCharacter) {
@@ -38,11 +41,11 @@ public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, Col
     }
 
     public boolean isReadyForPickup() {
-        return isReadyForPickup;
+        return !isPickupBlocked && !isHeldByCharacter;
     }
 
-    public void setIsReadyForPickup(boolean isReadyForPickup) {
-        this.isReadyForPickup = isReadyForPickup;
+    public void setIsPickupBlocked(boolean blocked) {
+        this.isPickupBlocked = blocked;
     }
 
     public abstract Weapon cloneWeapon();
@@ -53,8 +56,7 @@ public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, Col
 
     @Override
     public void setupTimers() {
-        WeaponCooldownTimer WeaponCooldownTimer = new WeaponCooldownTimer(attackSpeedCooldown, this);
-        addTimer(WeaponCooldownTimer);
+        addTimer(weaponCooldownTimer);
         addTimer(pickupTimer);
     }
 
@@ -64,8 +66,24 @@ public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, Col
         setCurrentFrameIndex(index);
     }
 
-    public void setPickupDelayBlock() {
-        isReadyForPickup = false;
+    public void startPickupBlockDelay() {
+        isPickupBlocked = true;
         pickupTimer.reset();
+    }
+
+    public void increaseKnockback(int percentage) {
+        knockbackMultiplier += Math.max(percentage, 0);
+    }
+
+    public void resetKnockback() {
+        knockbackMultiplier = 100;
+    }
+
+    public void increaseDamage(int percentage) {
+        damageMultiplier += Math.max(percentage, 0);
+    }
+
+    public void resetDamage() {
+        damageMultiplier = 100;
     }
 }

@@ -26,8 +26,9 @@ public class Shotgun extends ProjectileWeapon {
      * For example: 10 = 10% increase
      */
     @Override
-    public int getDamage() {
-        return 10;
+    public float getDamage() {
+        float multiplier = (float)knockbackMultiplier / 100;
+        return 10 * multiplier;
     }
 
     /**
@@ -35,8 +36,9 @@ public class Shotgun extends ProjectileWeapon {
      * For example: 1 = 1 speed in yaeger
      */
     @Override
-    public int getKnockback() {
-        return 1;
+    public float getKnockback() {
+        float multiplier = (float)knockbackMultiplier / 100;
+        return 1 * multiplier;
     }
 
     @Override
