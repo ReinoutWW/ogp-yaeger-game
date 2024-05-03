@@ -168,7 +168,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         return WEAPON_POSITION;
     }
 
-    public int getDamageTakenMiltiplier() {
+    public int getDamageTakenMultiplier() {
         return damageTakenMultiplier;
     }
 

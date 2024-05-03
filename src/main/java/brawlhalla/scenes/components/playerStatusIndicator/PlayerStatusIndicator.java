@@ -20,7 +20,7 @@ public class PlayerStatusIndicator extends DynamicCompositeEntity {
     public void updateStatus(IPlayer player) {
         this.playerNameText.setText(player.getName());
         this.playerLivesText.setText(String.valueOf(player.getLives()));
-        this.playerDamageTakenMulitplierText.setText(String.valueOf(player.getDamageTakenMiltiplier()));
+        this.playerDamageTakenMulitplierText.setText(String.valueOf(player.getDamageTakenMultiplier()));
     }
 
     @Override
