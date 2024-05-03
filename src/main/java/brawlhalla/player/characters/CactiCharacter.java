@@ -19,7 +19,7 @@ public class CactiCharacter extends Character {
     @Override
     public Weapon createDefaultWeapon(Coordinate2D initialLocation, IEntitySpawnableScene scene) {
         // Create weapon
-        return new Dagger(initialLocation, new Size(35, 60));
+        return new Dagger(initialLocation);
     }
 
     // Extra logic for only the CactiCharacter

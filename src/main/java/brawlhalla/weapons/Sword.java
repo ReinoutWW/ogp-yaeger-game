@@ -5,8 +5,8 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.Direction;
 
 public class Sword extends Melee {
-    public Sword(Coordinate2D initialLocation, Size size) {
-        super("sprites/weapons/melee_sword.png", initialLocation, size, 100);
+    public Sword(Coordinate2D initialLocation) {
+        super("sprites/weapons/melee_sword.png", initialLocation, new Size(35, 60), 100);
         attackSpeedCooldown = 7;
         verticalDamage = 5;
         horizontalDamage = 20;
@@ -30,5 +30,10 @@ public class Sword extends Melee {
     @Override
     public int getKnockback() {
         return 0;
+    }
+
+    @Override
+    public Weapon cloneWeapon() {
+        return new Sword(this.getAnchorLocation());
     }
 }

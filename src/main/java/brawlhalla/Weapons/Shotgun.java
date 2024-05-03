@@ -16,7 +16,7 @@ public class Shotgun extends ProjectileWeapon {
     public void attack(double direction, Coordinate2D startPosition) {
         if(readyForAttack) {
             YaegerEntity pistolBullet = new PistolBullet(startPosition, this, direction); // insert player position as start position for Bullet
-            sceneToSpawnProjectiles.addProjectileToSpawn(pistolBullet);
+            sceneToSpawnProjectiles.addEntityToSpawn(pistolBullet);
             setReadyForAttack(false);
         }
     }
@@ -37,5 +37,10 @@ public class Shotgun extends ProjectileWeapon {
     @Override
     public int getKnockback() {
         return 1;
+    }
+
+    @Override
+    public Weapon cloneWeapon() {
+        return new Shotgun(this.getAnchorLocation(), this.sceneToSpawnProjectiles);
     }
 }

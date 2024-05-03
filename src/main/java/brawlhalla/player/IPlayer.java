@@ -8,4 +8,5 @@ public interface IPlayer  {
     String getName();
     int getDamageTakenMiltiplier();
     int getLives();
+    void dropWeapon();
 }

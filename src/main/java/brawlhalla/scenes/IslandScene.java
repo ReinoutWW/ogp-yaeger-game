@@ -3,6 +3,7 @@ package brawlhalla.scenes;
 import brawlhalla.Brawhalla;
 import brawlhalla.player.Player;
 import brawlhalla.player.PlayerMovementConfiguration;
+import brawlhalla.player.characters.FoxCharacter;
 import brawlhalla.player.characters.ManCharacter;
 import brawlhalla.scenes.components.Island;
 import brawlhalla.scenes.components.MovingPlatform;
@@ -41,7 +42,7 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
         var player1 = new Player(
                 new Coordinate2D(getWidth() / 2, getHeight() /2),
                 "RG1",
-                new ManCharacter(),
+                new FoxCharacter(),
                 playerStatusIndicator1,
                 this,
                 island,
@@ -51,7 +52,8 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
                         KeyCode.DOWN,
                         KeyCode.LEFT,
                         KeyCode.RIGHT,
-                        KeyCode.CONTROL
+                        KeyCode.CONTROL,
+                        KeyCode.SHIFT
                 )
         );
 
@@ -68,7 +70,8 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
                         KeyCode.S,
                         KeyCode.A,
                         KeyCode.D,
-                        KeyCode.Q
+                        KeyCode.Q,
+                        KeyCode.E
                 )
         );
 
@@ -83,7 +86,7 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
         addEntity(playerStatusIndicator2);
     }
 
-    public void addProjectileToSpawn(YaegerEntity projectile) {
+    public void addEntityToSpawn(YaegerEntity projectile) {
         this.projectileSpawner.addEntityToSpawn(projectile);
     }
 

@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import brawlhalla.yaegerExtension.*;
 import javafx.scene.paint.Color;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -69,6 +70,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         this.playerName = name;
         this.character = character;
         this.weapon = Optional.of(character.createDefaultWeapon(WEAPON_POSITION, islandScene));
+        this.weapon.ifPresent(weapon -> weapon.setIsHeldByCharacter(true));
         this.playerTag = new PlayerTag(
                 new Coordinate2D(15, 0),
                 name,
@@ -138,6 +140,10 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
             attack();
         }
 
+        if(pressedKeys.contains(playerMovementConfiguration.getDrop())) {
+            dropWeapon();
+        }
+
         double currentDirection = getDirection();
 
         // Check if the attack is between
@@ -167,6 +173,37 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         return lives;
     }
 
+    /**
+     * Will drop the weapon into the provided IEntitySpawnableScene.
+     * Note: Will only drop the weapon if there's a weapon instance
+     * If weapon is null, nothing will happen.
+     */
+    public void dropWeapon() {
+        if(weapon.isPresent()) {
+            // Current weapon
+            Weapon selectedWeapon = weapon.get();
+
+            // New instance of current weapon
+            Weapon spawnableWeapon = selectedWeapon.cloneWeapon();
+
+            // Remove current weapon
+            selectedWeapon.removeWeapon();
+            this.weapon = Optional.empty();
+
+            // Spawn new
+            spawnableWeapon.setAnchorLocation(
+                    new Coordinate2D(
+                            this.getAnchorLocation().getX(),
+                            this.getAnchorLocation().getY() + WEAPON_POSITION.getY()
+                    )
+            );
+
+            spawnableWeapon.setIsHeldByCharacter(false);
+            spawnableWeapon.setPickupDelayBlock();
+            islandScene.addEntityToSpawn(spawnableWeapon);
+        }
+    }
+
     @Override
     public void onCollision(List<Collider> list) {
         if(hitsClass(list, Island.class)) {
@@ -182,6 +219,32 @@ public class Player extends DynamicCompositeEntity implements IPlayer, Newtonian
         // Check if there's a Projectile.class in the list
         if(hitsClass(list, Projectile.class)) {
             handleProjectileCollision(list);
+        }
+
+        if(hitsClass(list, Weapon.class)) {
+            handleWeaponCollision(list);
+        }
+    }
+
+    /**
+     * either handle the damage collision, or the pickup collision
+     * @param list
+     */
+    private void handleWeaponCollision(List<Collider> list) {
+        Weapon collidedWeapon = getFirstOfCollidedClasses(list, Weapon.class);
+
+        if(this.weapon.isEmpty() && collidedWeapon.isReadyForPickup()) {
+
+            // Clone collided weapon
+            this.weapon = Optional.of(collidedWeapon.cloneWeapon());
+            this.weapon.ifPresent(weapon -> weapon.setIsHeldByCharacter(true));
+            this.weapon.ifPresent(weapon -> weapon.setAnchorLocation(WEAPON_POSITION));
+
+            // Remove other scene weapon
+            collidedWeapon.removeWeapon();
+
+            // Use cloned weapon to set properties
+            addEntity(this.weapon.get());
         }
     }
 

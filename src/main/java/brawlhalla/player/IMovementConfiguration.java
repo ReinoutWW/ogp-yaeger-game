@@ -8,4 +8,5 @@ public interface IMovementConfiguration {
     KeyCode getLeft();
     KeyCode getRight();
     KeyCode getAttack();
+    KeyCode getDrop();
 }

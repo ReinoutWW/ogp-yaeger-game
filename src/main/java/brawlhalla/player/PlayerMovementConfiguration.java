@@ -11,17 +11,20 @@ public class PlayerMovementConfiguration implements IMovementConfiguration {
     private KeyCode left;
     private KeyCode right;
     private KeyCode attack;
+    private KeyCode drop;
 
     public PlayerMovementConfiguration(KeyCode up,
         KeyCode down,
         KeyCode left,
         KeyCode right,
-        KeyCode attack) {
+        KeyCode attack,
+        KeyCode drop) {
         this.up = up;
         this.down = down;
         this.left = left;
         this.right = right;
         this.attack = attack;
+        this.drop = drop;
     }
 
     public KeyCode getUp() {
@@ -42,5 +45,9 @@ public class PlayerMovementConfiguration implements IMovementConfiguration {
 
     public KeyCode getAttack() {
         return attack;
+    }
+
+    public KeyCode getDrop() {
+        return drop;
     }
 }

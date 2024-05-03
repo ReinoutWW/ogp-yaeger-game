@@ -16,7 +16,7 @@ public class YellowCharacter extends Character {
     @NonNull
     @Override
     public Weapon createDefaultWeapon(Coordinate2D initialLocation, IEntitySpawnableScene scene) {
-        return new Sword(initialLocation, new Size(35, 60));
+        return new Sword(initialLocation);
     }
 
     // Extra logic for only the CactiCharacter

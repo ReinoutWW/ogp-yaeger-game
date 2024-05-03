@@ -5,8 +5,8 @@ import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.Direction;
 
 public class Dagger extends Melee {
-    public Dagger(Coordinate2D initialLocation, Size size) {
-        super("sprites/weapons/melee_dagger.png", initialLocation, size, 50);
+    public Dagger(Coordinate2D initialLocation) {
+        super("sprites/weapons/melee_dagger.png", initialLocation, new Size(35, 60), 50);
         attackSpeedCooldown = 5;
         verticalDamage = 10;
         horizontalDamage = 15;
@@ -30,5 +30,10 @@ public class Dagger extends Melee {
     @Override
     public IWeapon pickup() {
         return this;
+    }
+
+    @Override
+    public Weapon cloneWeapon() {
+        return new Dagger(this.getAnchorLocation());
     }
 }
