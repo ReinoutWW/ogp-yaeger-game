@@ -39,4 +39,3 @@ public class StartScene extends DynamicScene {
         addEntity(player2SelectIndicator);
     }
 }
-2
