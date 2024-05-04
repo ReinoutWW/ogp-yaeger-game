@@ -35,11 +35,22 @@ public interface ClassCollided extends Collided {
      */
     @Nullable
     default <T extends YaegerEntity> T getFirstOfCollidedClasses(List<Collider> collidingObjects, Class<T> classType) {
+        // Functional programming
         Optional<Collider> collidedItem = collidingObjects.stream()
                 .filter(classType::isInstance)
                 .findFirst();
 
         return collidedItem.map(classType::cast).orElse(null);
+
+        // Or imperative programming:
+        // Collider collidedItem = null;
+        //for (Collider object : collidingObjects) {
+        //    if (classType.isInstance(object)) {
+        //        collidedItem = classType.cast(object);
+        //        break;
+        //    }
+        //}
+        //return collidedItem;
     }
 
 
