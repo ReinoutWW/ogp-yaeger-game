@@ -33,7 +33,7 @@ public class StartButton extends TextEntity implements MouseButtonPressedListene
 
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
-
+        startScene.getCharacterRoster().createPlayerCharacters();
         brawhalla.setActiveScene(Scenes.ISLAND.index);
     }
 

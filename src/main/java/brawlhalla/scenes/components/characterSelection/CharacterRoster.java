@@ -25,6 +25,8 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
     private CharacterIndicator yellowCharacterRect;
     private int selectionPlayer2;
     private int selectionPlayer1;
+    private Character selectedCharacterPlayer1;
+    private Character selectedCharacterPlayer2;
 
 
     public boolean getKeysBlocked() {
@@ -120,18 +122,45 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
         addTimer(selectionTimer);
     }
 
-    public int getSelectionPlayer1() {
-        return selectionPlayer1;
+    public void createPlayerCharacters() {
+       switch ( selectionPlayer1 ) {
+           case 1:
+               selectedCharacterPlayer1 = new FoxCharacter();
+               break;
+           case 2:
+               selectedCharacterPlayer1 = new CactiCharacter();
+               break;
+           case 3:
+               selectedCharacterPlayer1 = new ManCharacter();
+               break;
+           case 4:
+               selectedCharacterPlayer1 = new YellowCharacter();
+               break;
+       }
+        switch ( selectionPlayer2 ) {
+            case 1:
+                selectedCharacterPlayer2 = new FoxCharacter();
+                break;
+            case 2:
+                selectedCharacterPlayer2 = new CactiCharacter();
+                break;
+            case 3:
+                selectedCharacterPlayer2 = new ManCharacter();
+                break;
+            case 4:
+                selectedCharacterPlayer2 = new YellowCharacter();
+                break;
+        }
     }
 
-    public int getSelectionPlayer2() {
-        return selectionPlayer2;
+    public Character getSelectedCharacterPlayer1() {
+        return selectedCharacterPlayer1;
     }
 
-
-    public Character createPlayerCharacter() {
-       return new FoxCharacter();
+    public Character getSelectedCharacterPlayer2() {
+        return selectedCharacterPlayer2;
     }
 }
+
 
 

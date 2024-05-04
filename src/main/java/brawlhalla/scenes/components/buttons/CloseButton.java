@@ -19,7 +19,7 @@ public class CloseButton extends TextEntity implements MouseButtonPressedListene
         super(initialLocation);
         this.brawhalla = brawhalla;
         setText("Close Game");
-        setFill(Color.PURPLE);
+        setFill(Color.RED);
         setFont(Font.font("Roboto", FontWeight.BOLD, 30));
     }
 
@@ -30,13 +30,13 @@ public class CloseButton extends TextEntity implements MouseButtonPressedListene
 
     @Override
     public void onMouseEntered() {
-        setFill(Color.VIOLET);
+        setFill(Color.GREEN);
         setCursor(Cursor.HAND);
     }
 
     @Override
     public void onMouseExited(){
-        setFill(Color.PURPLE);
+        setFill(Color.RED);
         setCursor(Cursor.DEFAULT);
     }
 }

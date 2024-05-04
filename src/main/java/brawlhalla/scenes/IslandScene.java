@@ -25,6 +25,8 @@ import com.github.hanyaeger.api.*;
 public class IslandScene extends DynamicScene implements EntitySpawnerContainer, IEntitySpawnableScene {
     private ProjectileSpawner projectileSpawner;
     private Brawhalla brawhalla;
+    private Player player1;
+    private Player player2;
 
 
     public IslandScene(Brawhalla brawhalla) {
@@ -48,10 +50,10 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
         var playerStatusIndicator1 = new PlayerStatusIndicator(new Coordinate2D(getWidth() - 100, 10), Color.RED);
         var playerStatusIndicator2 = new PlayerStatusIndicator(new Coordinate2D(50, 10), Color.BLUE);
 
-        var player1 = new Player(
+        player1 = new Player(
                 new Coordinate2D(getWidth() / 2, getHeight() /2),
                 "RG1",
-                new FoxCharacter(),
+                brawhalla.getStartScene().getCharacterRoster().getSelectedCharacterPlayer1(),
                 playerStatusIndicator1,
                 this,
                 island,
@@ -66,10 +68,10 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
                 )
         );
 
-        var player2 = new Player(
+        player2 = new Player(
                 new Coordinate2D(getWidth() / 2 + 30, getHeight() /2),
                 "RG2",
-                new CactiCharacter(),
+                brawhalla.getStartScene().getCharacterRoster().getSelectedCharacterPlayer2(),
                 playerStatusIndicator2,
                 this,
                 island,
@@ -107,5 +109,12 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
         projectileSpawner = new ProjectileSpawner();
         addEntitySpawner(projectileSpawner);
         addEntitySpawner(new PowerUpSpawner(getWidth(), getHeight()));
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+    public Player getPlayer2() {
+        return player2;
     }
 }

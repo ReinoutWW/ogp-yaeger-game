@@ -1,6 +1,7 @@
 package brawlhalla.scenes.components.buttons;
 
 import brawlhalla.Brawhalla;
+import brawlhalla.Scenes;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
@@ -19,24 +20,24 @@ public class AgainButton extends TextEntity implements MouseButtonPressedListene
         super(initialLocation);
         this.brawhalla = brawhalla;
         setText("Play Again");
-        setFill(Color.PURPLE);
+        setFill(Color.RED);
         setFont(Font.font("Roboto", FontWeight.BOLD, 30));
     }
 
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
-        brawhalla.setActiveScene(0);
+        brawhalla.setActiveScene(Scenes.StART.index);
     }
 
     @Override
     public void onMouseEntered() {
-        setFill(Color.VIOLET);
+        setFill(Color.GREEN);
         setCursor(Cursor.HAND);
     }
 
     @Override
     public void onMouseExited(){
-        setFill(Color.PURPLE);
+        setFill(Color.RED);
         setCursor(Cursor.DEFAULT);
     }
 }

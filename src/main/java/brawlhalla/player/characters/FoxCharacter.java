@@ -19,5 +19,5 @@ public class FoxCharacter extends Character {
         return new Shotgun(initialLocation, scene);
     }
 
-    // Extra logic for only the CactiCharacter
+    // Extra logic for only the FoxCharacter
 }
