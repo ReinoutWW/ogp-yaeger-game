@@ -21,6 +21,9 @@ public class MovingPlatform extends DynamicSpriteEntity implements Collider, Tim
         addTimer(platformTimer);
     }
 
+    /**
+     * switches the movement direction of the platform controlled by PlatformTimer.
+     */
     public void switchDirection() {
         if (getDirection() == 0) {
             setDirection(Direction.UP);

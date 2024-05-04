@@ -30,11 +30,8 @@ public class CharacterIndicator extends CompositeEntity {
         selectedCharacterRectangle.setAnchorPoint(AnchorPoint.CENTER_CENTER);
 
 
-    addEntity(selectedCharacterRectangle);
-        if (selectedCharacter != null) {
-            selectedCharacter.setAnchorPoint(AnchorPoint.TOP_LEFT);
-            addEntity(selectedCharacter);
-        }
+        addEntity(selectedCharacterRectangle);
+        addEntity(selectedCharacter);
     }
 
     public void setSelectedCharacter(Character selectedCharacter) {

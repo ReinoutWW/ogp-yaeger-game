@@ -27,12 +27,6 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
     private int selectionPlayer1;
     private Character selectedCharacterPlayer1;
     private Character selectedCharacterPlayer2;
-
-
-    public boolean getKeysBlocked() {
-        return keysBlocked;
-    }
-
     private boolean keysBlocked;
     private SelectionTimer selectionTimer;
 
@@ -43,6 +37,9 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
         selectionTimer = new SelectionTimer(250, this);
     }
 
+    /**
+     * creates the CharacterIndicators for character previews to be selected by the players
+     */
     @Override
     protected void setupEntities() {
         selectedCharacters = new ArrayList<>();
@@ -66,6 +63,11 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
         addEntity(yellowCharacterRect);
     }
 
+    /**
+     * handles Key presses used by players to cycle through the CharacterIndicators to select their character .
+     * uses a Timer to ensure it is cycled in a controlled way.
+     * @param set
+     */
     @Override
     public void onPressedKeysChange(Set<KeyCode> set) {
         if(keysBlocked == false) {
@@ -97,7 +99,9 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
         }
     }
 
-
+    /**
+     * updates the colors of the CharacterIndicators to show what characters the players have currently selected.
+     */
     public void CheckSelection() {
         for (CharacterIndicator selectedCharacter : selectedCharacters) {
             if (selectionPlayer1 == selectedCharacter.getSelectionID() && selectionPlayer2 == selectedCharacter.getSelectionID()) {
@@ -113,6 +117,10 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
 
     }
 
+    /**
+     * used by the timer to control cycle speed through CharacterIndicators.
+     * @param keysBlocked
+     */
     public void setKeysBlocked(boolean keysBlocked) {
         this.keysBlocked = keysBlocked;
     }
@@ -122,6 +130,9 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
         addTimer(selectionTimer);
     }
 
+    /**
+     * creates instances of the Characters selected by the players to be used for Player creation.
+     */
     public void createPlayerCharacters() {
        switch ( selectionPlayer1 ) {
            case 1:
@@ -159,6 +170,10 @@ public class CharacterRoster extends DynamicCompositeEntity implements KeyListen
 
     public Character getSelectedCharacterPlayer2() {
         return selectedCharacterPlayer2;
+    }
+
+    public boolean getKeysBlocked() {
+        return keysBlocked;
     }
 }
 

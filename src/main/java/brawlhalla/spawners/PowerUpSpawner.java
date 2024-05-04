@@ -19,6 +19,9 @@ public class PowerUpSpawner extends EntitySpawner {
         this.height = height;
     }
 
+    /**
+     * places a random power up on a random position on the screen
+     */
     @Override
     protected void spawnEntities() {
         int random = new Random().nextInt(0, 2);

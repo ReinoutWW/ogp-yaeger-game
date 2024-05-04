@@ -24,12 +24,20 @@ public abstract class PowerUp extends DynamicSpriteEntity implements TimerContai
         powerUpTimer = new PowerUpTimer(this);
     }
 
+    /**
+     * when a player collides with a PowerUp it gets consumed and activated.
+     * starts the powerUp duration timer
+     * @param player
+     */
     public void consume(IPowerUpPlayer player) {
         this.player = player;
         startPowerUpTimer();
         System.out.println("start powerup");
     }
 
+    /**
+     * removes the powerUp
+     */
     public void end() {
         remove();
         System.out.println("reset powerup");
@@ -44,6 +52,11 @@ public abstract class PowerUp extends DynamicSpriteEntity implements TimerContai
         powerUpTimer.reset();
     }
 
+    /**
+     * handles the collision of the powerUp
+     * if it collides with a player it is consumed for the colliding player and it becomes invisible
+     * @param list
+     */
     @Override
     public void onCollision(List<Collider> list) {
         if(player != null) {

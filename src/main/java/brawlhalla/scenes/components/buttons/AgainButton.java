@@ -24,17 +24,28 @@ public class AgainButton extends TextEntity implements MouseButtonPressedListene
         setFont(Font.font("Roboto", FontWeight.BOLD, 30));
     }
 
+    /**
+     * resets game to start
+     * @param mouseButton
+     * @param coordinate2D
+     */
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
         brawhalla.setActiveScene(Scenes.StART.index);
     }
 
+    /**
+     * visual mouse indicator
+     */
     @Override
     public void onMouseEntered() {
         setFill(Color.GREEN);
         setCursor(Cursor.HAND);
     }
 
+    /**
+     * visual mouse indicator
+     */
     @Override
     public void onMouseExited(){
         setFill(Color.RED);

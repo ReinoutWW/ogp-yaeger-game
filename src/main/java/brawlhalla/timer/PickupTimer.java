@@ -14,6 +14,10 @@ public class PickupTimer extends Timer {
         this.weapon = weapon;
     }
 
+    /**
+     * releases the block on picking up a dropped weapon.
+     * @param l
+     */
     @Override
     public void onAnimationUpdate(long l) {
         weapon.setIsPickupBlocked(false);
