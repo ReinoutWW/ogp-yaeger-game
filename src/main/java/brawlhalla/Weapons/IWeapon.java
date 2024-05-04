@@ -30,11 +30,25 @@ public interface IWeapon {
      */
     void setAttackDirection(double direction);
 
+    /**
+     * Increase the knockback on the weapon
+     * @param percentage the amount
+     */
     void increaseKnockback(int percentage);
 
+    /**
+     * Restore any multiplier values back to default
+     */
     void resetKnockback();
 
+    /**
+     * Increase the damage on the weapon
+     * @param percentage the amount
+     */
     void increaseDamage(int percentage);
 
+    /**
+     * Restore any multiplier values back to default
+     */
     void resetDamage();
 }
