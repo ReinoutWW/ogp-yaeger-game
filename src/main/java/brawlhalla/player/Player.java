@@ -8,7 +8,10 @@ import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.timer.MovementTimer;
 import brawlhalla.weapons.*;
+import brawlhalla.weapons.melee.Melee;
+import brawlhalla.weapons.projectiles.IProjectile;
 import brawlhalla.weapons.projectiles.Projectile;
+import brawlhalla.weapons.projectiles.ProjectileWeapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.*;
@@ -140,12 +143,11 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
         // Do attack
         if (pressedKeys.contains(playerMovementConfiguration.getAttack())) {
-            System.out.println("attack! ");
             attack();
         }
 
         if(pressedKeys.contains(playerMovementConfiguration.getDrop())) {
-            dropWeapon();
+            //dropWeapon(); TO DO: Fix weapon spawn. Can't do addEntity on runtime..
         }
 
         double currentDirection = getDirection();
@@ -219,6 +221,24 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
         if(hitsClass(list, Weapon.class)) {
             handleWeaponCollision(list);
+        }
+
+        if(hitsClass(list, Melee.class)) {
+            handleMeleeCollision(list);
+        }
+    }
+
+    private void handleMeleeCollision(List<Collider> list) {
+        Melee collidedMelee = getFirstOfCollidedClasses(list, Melee.class);
+
+        if(collidedMelee.isDoingDamage() && this.weapon.orElse(null) != collidedMelee) {
+            this.movementTimer.reset();
+            this.setControlsBlocked(true);
+            addDamage(collidedMelee.getDamage());
+            doKnockback(collidedMelee.getKnockback(), attackDirection);
+
+            playerStatusIndicator.updateStatus(this);
+            // Do something with the given projectile
         }
     }
 

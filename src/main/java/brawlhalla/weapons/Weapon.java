@@ -18,7 +18,7 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, IPowerUpWeaponKnockBack, IPowerUpWeaponDamage, Collider, TimerContainer {
     protected long attackSpeedCooldown;
     protected boolean isHeldByCharacter;
-    protected boolean readyForAttack = true;
+    protected boolean isAttacking = false;
     private final Timer pickupTimer;
     private final Timer weaponCooldownTimer;
     private boolean isPickupBlocked = true;
@@ -32,25 +32,25 @@ public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, IPo
         weaponCooldownTimer = new WeaponCooldownTimer(attackSpeedCooldown, this);
     }
 
-    public void setIsHeldByCharacter(boolean isHeldByCharacter) {
+    public final void setIsHeldByCharacter(boolean isHeldByCharacter) {
         this.isHeldByCharacter = isHeldByCharacter;
     }
 
-    public void setReadyForAttack(boolean ready) {
-        this.readyForAttack = ready;
+    public final void setIsAttacking(boolean ready) {
+        this.isAttacking = ready;
     }
 
-    public boolean isReadyForPickup() {
+    public final boolean isReadyForPickup() {
         return !isPickupBlocked && !isHeldByCharacter;
     }
 
-    public void setIsPickupBlocked(boolean blocked) {
+    public final void setIsPickupBlocked(boolean blocked) {
         this.isPickupBlocked = blocked;
     }
 
     public abstract Weapon cloneWeapon();
 
-    public void removeWeapon() {
+    public final void removeWeapon() {
         remove();
     }
 
@@ -61,29 +61,29 @@ public abstract class Weapon extends DynamicSpriteEntity implements IWeapon, IPo
     }
 
     @Override
-    public void setAttackDirection(double direction) {
+    public final void setAttackDirection(double direction) {
         int index = DirectionHelper.isRight(direction) ? 0 : 1;
         setCurrentFrameIndex(index);
     }
 
-    public void startPickupBlockDelay() {
+    public final void startPickupBlockDelay() {
         isPickupBlocked = true;
         pickupTimer.reset();
     }
 
-    public void increaseKnockback(int percentage) {
+    public final void increaseKnockback(int percentage) {
         knockbackMultiplier += Math.max(percentage, 0);
     }
 
-    public void resetKnockback() {
+    public final void resetKnockback() {
         knockbackMultiplier = 100;
     }
 
-    public void increaseDamage(int percentage) {
+    public final void increaseDamage(int percentage) {
         damageMultiplier += Math.max(percentage, 0);
     }
 
-    public void resetDamage() {
+    public final void resetDamage() {
         damageMultiplier = 100;
     }
 }

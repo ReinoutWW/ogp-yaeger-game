@@ -1,7 +1,7 @@
-package brawlhalla.weapons;
+package brawlhalla.weapons.projectiles;
 
 import brawlhalla.scenes.IEntitySpawnableScene;
-import brawlhalla.weapons.projectiles.PistolBullet;
+import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 
@@ -13,10 +13,10 @@ public class Pistol extends ProjectileWeapon {
 
     @Override
     public void attack(double direction, Coordinate2D startPosition) {
-        if(readyForAttack) {
+        if(!isAttacking) {
             YaegerEntity pistolBullet = new PistolBullet(startPosition, this, direction); // insert player position as start position for Bullet
             sceneToSpawnProjectiles.addEntityToSpawn(pistolBullet);
-            setReadyForAttack(false);
+            setIsAttacking(true);
         }
     }
 

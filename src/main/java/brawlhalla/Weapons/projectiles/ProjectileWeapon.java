@@ -1,10 +1,11 @@
-package brawlhalla.weapons;
+package brawlhalla.weapons.projectiles;
 
 import brawlhalla.scenes.IEntitySpawnableScene;
+import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 
-public abstract class ProjectileWeapon extends Weapon{
+public abstract class ProjectileWeapon extends Weapon {
     protected IEntitySpawnableScene sceneToSpawnProjectiles;
 
     protected ProjectileWeapon(String resource, Coordinate2D initialLocation, IEntitySpawnableScene scene, long attackSpeedCooldown) {

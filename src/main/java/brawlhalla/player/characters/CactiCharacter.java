@@ -1,7 +1,7 @@
 package brawlhalla.player.characters;
 
 import brawlhalla.scenes.IEntitySpawnableScene;
-import brawlhalla.weapons.Dagger;
+import brawlhalla.weapons.melee.Dagger;
 import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
