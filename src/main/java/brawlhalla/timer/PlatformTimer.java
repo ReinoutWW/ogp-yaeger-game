@@ -3,6 +3,9 @@ package brawlhalla.timer;
 import brawlhalla.scenes.components.MovingPlatform;
 import com.github.hanyaeger.api.Timer;
 
+/**
+ * Used to set a timer for the moving platform
+ */
 public class PlatformTimer extends Timer {
     private MovingPlatform movingPlatform;
 
@@ -16,7 +19,4 @@ public class PlatformTimer extends Timer {
     {
         movingPlatform.switchDirection();
     }
-
-
-
 }
