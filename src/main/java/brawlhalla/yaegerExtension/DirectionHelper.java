@@ -2,6 +2,10 @@ package brawlhalla.yaegerExtension;
 
 import com.github.hanyaeger.api.entities.Direction;
 
+/**
+ * Make life easier, use helper classes
+ * Static methods to encapsulate conditions
+ */
 public class DirectionHelper {
     public static boolean isBetweenCoordinates(double min, double max, double value) {
         return (value >= min && value <= max);

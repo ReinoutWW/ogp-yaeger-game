@@ -5,6 +5,10 @@ import com.github.hanyaeger.api.entities.YaegerEntity;
 
 import java.util.Random;
 
+/**
+ * Make life easier, use helper classes.
+ * Help generate coordinates
+ */
 public class CoordinationHelper {
     public static Coordinate2D getRandomLocation(int width, int height, int paddingOffset) {
         Random random = new Random();
