@@ -20,10 +20,10 @@ public class ScorePanel extends DynamicCompositeEntity {
     @Override
     protected void setupEntities() {
         var scorePanelRectangle = new ScorePanelRectangle(new Coordinate2D(0, 0), backgroundColor);
-        var damageDealt = new ScoreLabel(new Coordinate2D(5, 10), "Damage Dealt: " + playerScoreStatistics.getDamageDealt(), 20);
-        var damageReceived = new ScoreLabel(new Coordinate2D(5, 35), "Damage Received: " + playerScoreStatistics.getDamageReceived(), 20);
-        var hitsDealt = new ScoreLabel(new Coordinate2D(5, 60), "Hits Dealt: " + playerScoreStatistics.getHitsDealt(),20);
-        var hitsReceived = new ScoreLabel(new Coordinate2D(5, 85), "Hits Received: " + playerScoreStatistics.getHitsReceived(), 20);
+        var damageDealt = new ScoreLabel(new Coordinate2D(5, 10), "Damage Dealt: " + playerScoreStatistics.getDamageDealt(), 15);
+        var damageReceived = new ScoreLabel(new Coordinate2D(5, 35), "Damage Received: " + playerScoreStatistics.getDamageReceived(), 15);
+        var hitsDealt = new ScoreLabel(new Coordinate2D(5, 60), "Hits Dealt: " + playerScoreStatistics.getHitsDealt(),15);
+        var hitsReceived = new ScoreLabel(new Coordinate2D(5, 85), "Hits Received: " + playerScoreStatistics.getHitsReceived(), 15);
 
         addEntity(scorePanelRectangle);
         addEntity(damageDealt);

@@ -117,7 +117,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
                 setMotion(movementSpeed, 315d);
             } else if (!isGrounded) {
                 if (getDirection() == 0) {
-                    setMotion(movementSpeed, 355);
+                    setMotion(movementSpeed, 355d);
                 } else if (getDirection() < 315d && getDirection() >= 180d) {
                     setMotion(movementSpeed, getDirection() + 5);
                 } else if (getDirection() > 315d || getDirection() < 180d) {
@@ -347,8 +347,11 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
     @Override
     public void respawn() {
-        double centralIslandSpawnY = centreIsland.getAnchorLocation().getY() - centreIsland.getHeight() - this.getHeight();
+        double centralIslandSpawnY = centreIsland.getAnchorLocation().getY() - centreIsland.getHeight() - this.getHeight() - 10;
         setAnchorLocation(new Coordinate2D(islandScene.getWidth() / 2, centralIslandSpawnY));
+        setSpeed(0);
+        playerStatusIndicator.updateStatus(this);
+        setControlsBlocked(false);
     }
 
     @Override
@@ -405,7 +408,6 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
         playerStatusIndicator.updateStatus(this);
         if(lives < 1) {
-            // Do something here, for example restart
             islandScene.setActiveScene(Scenes.END);
         }
     }
@@ -444,4 +446,9 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
     public void resetSpeedBoost() {
         speedBoostMultiplier = 100;
     }
+
+    public PlayerScoreStatistics getPlayerScoreStatistics() {
+        return playerScoreStatistics;
+    }
+
 }

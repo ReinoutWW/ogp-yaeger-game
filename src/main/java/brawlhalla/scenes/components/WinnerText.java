@@ -7,16 +7,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class WinnerText extends TextEntity {
-    private String winner;
 
-    public WinnerText(Coordinate2D initialLocation) {
+
+    public WinnerText(Coordinate2D initialLocation, String winner) {
         super(initialLocation);
         setText(winner + " is the winner!!");
-        setFill(Color.PURPLE);
+        setFill(Color.GREEN);
         setFont(Font.font("Roboto", FontWeight.BOLD, 30));
-    }
-
-    public void setWinner(String winner) {
-        this.winner = winner;
     }
 }
