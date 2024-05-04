@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Provide an easier way to check which class has collided
+ * Provides:
+ * default methods to make life easier
+ */
 public interface ClassCollided extends Collided {
 
     /*
