@@ -107,7 +107,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
         if (pressedKeys.contains(playerMovementConfiguration.getUp()) && isGrounded) {
             isGrounded = false;
-            setMotion(movementSpeed, 180d);
+            setMotion(movementSpeed + 2, 180d);
         } else if (pressedKeys.contains(playerMovementConfiguration.getDown()) && !isGrounded) {
             setMotion(movementSpeed, 0d);
         } else if (pressedKeys.contains(playerMovementConfiguration.getLeft())) {
