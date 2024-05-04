@@ -237,6 +237,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
             addDamage(collidedMelee.getDamage());
             doKnockback(collidedMelee.getKnockback(), attackDirection);
 
+            playerScoreStatistics.incrementHitsReceived(1);
             playerStatusIndicator.updateStatus(this);
             // Do something with the given projectile
         }
@@ -307,6 +308,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
             addDamage(weaponThatShotProjectile.getDamage());
             doKnockback(weaponThatShotProjectile.getKnockback(), collidedProjectile.getDirection());
 
+            playerScoreStatistics.incrementHitsReceived(1);
             playerStatusIndicator.updateStatus(this);
             collidedProjectile.remove();
             // Do something with the given projectile
@@ -320,10 +322,12 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         float knockbackMultiplier = defaultAmount + ((float) damageTakenMultiplier / 100); // default + multiplier
         float knockbackPerformed = knockback * knockbackMultiplier; // calculate force with multiplier
         setMotion(knockbackPerformed, direction);
+        playerScoreStatistics.incrementKnockbackReceived((int)knockbackPerformed);
     }
 
     private void addDamage(float damage) {
         damageTakenMultiplier += (int) Math.max(damage, 0);
+        playerScoreStatistics.incrementDamageReceived((int)damage);
     }
 
     private void moveWithMovingPlatform(MovingPlatform movingPlatform) {

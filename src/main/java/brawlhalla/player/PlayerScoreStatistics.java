@@ -9,6 +9,8 @@ public class PlayerScoreStatistics {
     private int DamageReceived = 0;
     private int hitsDealt = 0;
     private int hitsReceived = 0;
+    private int knockbackDealt = 0;
+    private int knockbackReceived = 0;
 
     public PlayerScoreStatistics() { }
 
@@ -42,6 +44,14 @@ public class PlayerScoreStatistics {
      */
     public void incrementHitsReceived(int hits) {
         hitsReceived = getHitsReceived() + (Math.max(hits, 0));
+    }
+
+    public void incrementKnockbackDealt(int knockback) {
+        knockbackDealt += Math.max(knockback, 0);
+    }
+
+    public void incrementKnockbackReceived(int knockback) {
+        knockbackReceived += Math.max(knockback, 0);
     }
 
     public PlayerScoreStatistics getPlayerScoreStatistics() {
