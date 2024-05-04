@@ -5,6 +5,9 @@ import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 
+/**
+ * Base class for projectile weapons
+ */
 public abstract class ProjectileWeapon extends Weapon {
     protected IEntitySpawnableScene sceneToSpawnProjectiles;
 
@@ -13,6 +16,11 @@ public abstract class ProjectileWeapon extends Weapon {
         this.sceneToSpawnProjectiles = scene;
     }
 
+    /**
+     * The attack logic
+     * @param direction the given direction for spawned entities
+     * @param startPosition the position that an entity will be spawned
+     */
     @Override
     public abstract void attack(double direction, Coordinate2D startPosition);
 }
