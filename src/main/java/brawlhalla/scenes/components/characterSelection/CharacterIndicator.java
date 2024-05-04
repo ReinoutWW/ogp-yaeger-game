@@ -12,24 +12,25 @@ public class CharacterIndicator extends CompositeEntity {
     private Character selectedCharacter;
     private Coordinate2D selectedCoordinate;
     private int selectionID;
+    public SelectedCharacterRectangle selectedCharacterRectangle;
 
     public CharacterIndicator(Coordinate2D initialLocation, Color rectColor, Character selectedCharacter, int selectionID) {
         super(initialLocation);
         this.rectColor = rectColor;
         this.selectedCoordinate = initialLocation;
-        this.selectedCharacter = selectedCharacter;
         this.selectionID = selectionID;
+        this.selectedCharacter = selectedCharacter;
     }
 
 
     @Override
     protected void setupEntities() {
-        var selectedRectangle = new SelectedCharacterRectangle(new Coordinate2D(50,50), new Size(70), rectColor);
+        selectedCharacterRectangle = new SelectedCharacterRectangle(new Coordinate2D(50,50), new Size(70), rectColor);
 
-        selectedRectangle.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        selectedCharacterRectangle.setAnchorPoint(AnchorPoint.CENTER_CENTER);
 
 
-    addEntity(selectedRectangle);
+    addEntity(selectedCharacterRectangle);
         if (selectedCharacter != null) {
             selectedCharacter.setAnchorPoint(AnchorPoint.TOP_LEFT);
             addEntity(selectedCharacter);
@@ -38,5 +39,13 @@ public class CharacterIndicator extends CompositeEntity {
 
     public void setSelectedCharacter(Character selectedCharacter) {
         this.selectedCharacter = selectedCharacter;
+    }
+
+    public int getSelectionID() {
+        return selectionID;
+    }
+
+    public void setRectColor(Color rectColor) {
+        this.rectColor = rectColor;
     }
 }

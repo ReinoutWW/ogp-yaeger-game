@@ -26,6 +26,7 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
     private ProjectileSpawner projectileSpawner;
     private Brawhalla brawhalla;
 
+
     public IslandScene(Brawhalla brawhalla) {
         this.brawhalla = brawhalla;
     }

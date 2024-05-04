@@ -2,6 +2,8 @@ package brawlhalla.scenes.components.buttons;
 
 import brawlhalla.Brawhalla;
 import brawlhalla.Scenes;
+import brawlhalla.player.characters.Character;
+import brawlhalla.scenes.StartScene;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
@@ -15,10 +17,14 @@ import javafx.scene.text.FontWeight;
 
 public class StartButton extends TextEntity implements MouseButtonPressedListener, MouseEnterListener, MouseExitListener {
     private Brawhalla brawhalla;
+    private Character player1Character;
+    private Character player2Character;
+    private StartScene startScene;
 
-    public StartButton(Coordinate2D initialLocation, Brawhalla brawhalla) {
+    public StartButton(Coordinate2D initialLocation, Brawhalla brawhalla, StartScene scene) {
         super(initialLocation);
         this.brawhalla = brawhalla;
+        this.startScene = scene;
         setText("Start Game");
         setFill(Color.RED);
         setFont(Font.font("Roboto", FontWeight.BOLD, 30));
@@ -27,6 +33,7 @@ public class StartButton extends TextEntity implements MouseButtonPressedListene
 
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
+
         brawhalla.setActiveScene(Scenes.ISLAND.index);
     }
 
