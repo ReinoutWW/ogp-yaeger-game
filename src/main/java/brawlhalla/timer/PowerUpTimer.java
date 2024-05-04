@@ -4,7 +4,7 @@ import brawlhalla.powerup.PowerUp;
 import com.github.hanyaeger.api.Timer;
 
 /**
- * Used to time the powerup. Will remove the powerup after the after the interval
+ * Used to time the powerup. Will remove the powerup after  the interval
  */
 public class PowerUpTimer extends Timer {
     private PowerUp powerUp;
@@ -14,6 +14,10 @@ public class PowerUpTimer extends Timer {
         this.powerUp = powerUp;
     }
 
+    /**
+     * interval handling for powerUp removal.
+     * @param l
+     */
     @Override
     public void onAnimationUpdate(long l)
     {

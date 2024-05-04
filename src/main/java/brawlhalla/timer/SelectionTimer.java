@@ -11,6 +11,11 @@ public class SelectionTimer extends Timer {
         this.characterroster = characterRoster;
     }
 
+    /**
+     * interval handling for character selection key pressed.
+     * delays character selection cycle.
+     * @param l
+     */
     @Override
     public void onAnimationUpdate(long l) {
         characterroster.setKeysBlocked(false);

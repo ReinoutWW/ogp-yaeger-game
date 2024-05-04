@@ -11,6 +11,10 @@ public class WeaponCooldownTimer extends Timer {
         this.weapon = weapon;
     }
 
+    /**
+     * interval handling for weapon attacks to prevent attack spamming.
+     * @param l
+     */
     @Override
     public void onAnimationUpdate(long l) {
         weapon.setIsAttacking(false);
