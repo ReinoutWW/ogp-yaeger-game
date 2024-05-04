@@ -11,10 +11,19 @@ public abstract class Melee extends Weapon implements Collider {
         super(resource, initialLocation, size, attackSpeedCooldown);
     }
 
+    /**
+     * Indicates if the waepon is actively attacking
+     * @return true if attacking
+     */
     public final boolean isDoingDamage() {
         return isAttacking;
     }
 
+    /**
+     * The attack logic
+     * @param direction the given direction for spawned entities
+     * @param initialLocation the position that an entity will be spawned
+     */
     @Override
     public void attack(double direction, Coordinate2D initialLocation) {
         if(!isAttacking) {
@@ -23,6 +32,9 @@ public abstract class Melee extends Weapon implements Collider {
         }
     }
 
+    /**
+     * Setup rotation timers for attack animation
+     */
     @Override
     public void setupTimers() {
         super.setupTimers();

@@ -5,6 +5,10 @@ import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 
+/**
+ * A shotgun weapon with the defined attack logic and knockback and damage
+ * Extends ProjectileWeapon
+ */
 public class Shotgun extends ProjectileWeapon {
 
     public Shotgun(Coordinate2D initialLocation, IEntitySpawnableScene scene){
@@ -12,6 +16,11 @@ public class Shotgun extends ProjectileWeapon {
 
     }
 
+    /**
+     * The attack logic
+     * @param direction the given direction for spawned entities
+     * @param startPosition the position that an entity will be spawned
+     */
     @Override
     public void attack(double direction, Coordinate2D startPosition) {
         if(!isAttacking) {
@@ -41,6 +50,10 @@ public class Shotgun extends ProjectileWeapon {
         return 1 * multiplier;
     }
 
+    /**
+     * Method is used to clone the instance of a weapon instead of passing a reference
+     * @return this weapon
+     */
     @Override
     public Weapon cloneWeapon() {
         return new Shotgun(this.getAnchorLocation(), this.sceneToSpawnProjectiles);

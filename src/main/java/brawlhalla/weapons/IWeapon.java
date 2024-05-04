@@ -5,6 +5,11 @@ import com.github.hanyaeger.api.Coordinate2D;
 public interface IWeapon {
     void setIsAttacking(boolean ready);
 
+    /**
+     * The attack logic
+     * @param direction the given direction for spawned entities
+     * @param startPosition the position that an entity will be spawned
+     */
     void attack(double direction, Coordinate2D startPosition);
 
     /**
