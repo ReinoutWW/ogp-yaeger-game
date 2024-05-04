@@ -14,6 +14,10 @@ public class MeleeRotationTimer extends Timer {
         this.weapon = weapon;
     }
 
+    /**
+     * handles the meleeWeapon rotation based on a set interval for visual purposes
+     * @param l
+     */
     @Override
     public void onAnimationUpdate(long l) {
         if(weapon.isDoingDamage()) {

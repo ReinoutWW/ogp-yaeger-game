@@ -42,6 +42,10 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
         setBackgroundImage("backgrounds/LevelBackground.png");
     }
 
+    /**
+     * sets up the entities for the IslandScene
+     * instantiates the playerCharacters using the character selection of the startScene
+     */
     @Override
     public void setupEntities() {
         var island = new Island(new Coordinate2D(getWidth() / 2 , getHeight() - 50) );
@@ -100,6 +104,10 @@ public class IslandScene extends DynamicScene implements EntitySpawnerContainer,
         addEntity(playerStatusIndicator2);
     }
 
+    /**
+     * adds projectile to entity spawner to create them on the scene
+     * @param projectile
+     */
     public void addEntityToSpawn(YaegerEntity projectile) {
         this.projectileSpawner.addEntityToSpawn(projectile);
     }

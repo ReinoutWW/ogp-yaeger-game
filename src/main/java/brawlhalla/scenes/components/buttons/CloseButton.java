@@ -23,17 +23,26 @@ public class CloseButton extends TextEntity implements MouseButtonPressedListene
         setFont(Font.font("Roboto", FontWeight.BOLD, 30));
     }
 
+    /**
+     * closes the application after click
+     * @param mouseButton
+     * @param coordinate2D
+     */
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
         brawhalla.quit();
     }
-
+    /**
+     * visual mouse indicator
+     */
     @Override
     public void onMouseEntered() {
         setFill(Color.GREEN);
         setCursor(Cursor.HAND);
     }
-
+    /**
+     * visual mouse indicator
+     */
     @Override
     public void onMouseExited(){
         setFill(Color.RED);

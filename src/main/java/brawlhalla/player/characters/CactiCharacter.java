@@ -13,6 +13,12 @@ public class CactiCharacter extends Character {
         //setAutoCycle(1);
     }
 
+    /**
+     * creates and returns the default weapon for this character
+     * @param initialLocation
+     * @param scene
+     * @return
+     */
     @NonNull
     @Override
     public Weapon createDefaultWeapon(Coordinate2D initialLocation, IEntitySpawnableScene scene) {

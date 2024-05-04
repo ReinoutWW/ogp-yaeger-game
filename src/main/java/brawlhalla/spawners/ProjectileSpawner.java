@@ -16,6 +16,9 @@ public class ProjectileSpawner extends EntitySpawner {
         this.entitiesToSpawn.add(entity);
     }
 
+    /**
+     * loops through the list of to spawn projectiles and spawns them
+     */
     @Override
     protected void spawnEntities() {
         for (Iterator<YaegerEntity> it = entitiesToSpawn.iterator(); it.hasNext(); ) {

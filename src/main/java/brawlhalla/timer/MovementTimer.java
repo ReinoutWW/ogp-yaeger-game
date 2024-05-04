@@ -14,6 +14,10 @@ public class MovementTimer extends Timer {
         this.player = player;
     }
 
+    /**
+     * Releases the block on playerMovement after being hit with an attack based on the set timer interval.
+     * @param l
+     */
     @Override
     public void onAnimationUpdate(long l) {
         player.setControlsBlocked(false);

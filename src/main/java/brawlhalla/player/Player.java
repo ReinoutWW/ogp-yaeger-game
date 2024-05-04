@@ -66,6 +66,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
     protected boolean controlsBlocked = false;
 
+
     public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IEntitySpawnableScene islandScene, SpriteEntity centreIsland, Color playerColor, IMovementConfiguration movementConfiguration) {
         super(initialLocation);
         this.playerStatusIndicator = playerStatusIndicator;
@@ -94,6 +95,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
     /**
      * The main method that will handle all key presses.
      * Mainly relies on the @PlayerMovementConfiguration for the active key options
+     * Sets direction and speed for the player based on the key press and the current movement status of the player
      * @param pressedKeys
      */
     @Override
@@ -156,6 +158,10 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         saveAttackDirection(currentDirection);
     }
 
+    /**
+     * saves the last pressed direction key for later us in directional attacking
+     * @param currentDirection
+     */
     private void saveAttackDirection(double currentDirection) {
         if (DirectionHelper.isBetweenCoordinates(Direction.UP_LEFT.getValue(), Direction.DOWN_LEFT.getValue(), currentDirection) ||
                 DirectionHelper.isBetweenCoordinates(Direction.DOWN_RIGHT.getValue(), Direction.UP_RIGHT.getValue(), currentDirection)) {
@@ -202,6 +208,10 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
     }
 
+    /**
+     * Checks which object the player collides with and calls the corresponding method
+     * @param list
+     */
     @Override
     public void onCollision(List<Collider> list) {
         if(hitsClass(list, Island.class)) {
@@ -228,6 +238,14 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
     }
 
+    /**
+     * handles the player being hit with a melee attack.
+     * sets the damage and knockback to the hit player corresponding the used attack
+     * sets controlsBlocked to true to block the player from moving temporary after being hit
+     * resets the movementTimer to insure the blocked time is always the same
+     * updates the playerScoreStatistics
+     * @param list
+     */
     private void handleMeleeCollision(List<Collider> list) {
         Melee collidedMelee = getFirstOfCollidedClasses(list, Melee.class);
 
@@ -265,6 +283,10 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
     }
 
+    /**
+     * sets the players speed and position to the right values when colliding with the island
+     * sets the isGrounded to true to indicate the player is standing on solid ground for movement
+     */
     private void handleIslandCollision() {
         // Island and platform hit
         double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
@@ -282,6 +304,12 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
     }
 
+    /**
+     * handles the moving platform collision by setting speed and location
+     * calls moveWithMovingPlatform so player movement will be adjusted to the platform
+     * sets the isGrounded to true to indicate the player is standing on solid ground for movement
+     * @param list
+     */
     private void handleMovingPlatformCollision(List<Collider> list) {
         MovingPlatform movingPlatform = getFirstOfCollidedClasses(list, MovingPlatform.class);
         double playerBottomY = this.getAnchorLocation().getY() + getHeight() - 10;
@@ -298,6 +326,15 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
     }
 
+    /**
+     * handles the player being hit with a projectile attack.
+     * sets the damage and knockback to the hit player corresponding the used attack
+     * sets controlsBlocked to true to block the player from moving temporary after being hit
+     * resets the movementTimer to insure the blocked time is always the same
+     * updates the playerScoreStatistics
+     * deletes the used projectile after being hit
+     * @param list
+     */
     private void handleProjectileCollision(List<Collider> list) {
         IProjectile collidedProjectile = getFirstOfCollidedClasses(list, Projectile.class);
         ProjectileWeapon weaponThatShotProjectile = collidedProjectile.getProjectileWeapon();
@@ -315,6 +352,12 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
     }
 
+    /**
+     * handles the movement of the player being influenced by an attack knockback
+     * sets playerScoreStatistics based on knockback
+     * @param knockback
+     * @param direction
+     */
     private void doKnockback(float knockback, double direction) {
         // To do: add knockback block timer
 
@@ -325,15 +368,26 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         playerScoreStatistics.incrementKnockbackReceived((int)knockbackPerformed);
     }
 
+    /**
+     * increases the damageTakenMultiplier and playerScoreStatistics on the player based on the damage value of the attack
+     * @param damage
+     */
     private void addDamage(float damage) {
         damageTakenMultiplier += (int) Math.max(damage, 0);
         playerScoreStatistics.incrementDamageReceived((int)damage);
     }
 
+    /**
+     * sets the player movement to the value used by the movingPlatform
+     * @param movingPlatform
+     */
     private void moveWithMovingPlatform(MovingPlatform movingPlatform) {
         setMotion(movingPlatform.getSpeed(), movingPlatform.getDirection());
     }
 
+    /**
+     * calls the attack method on the currently used player weapon
+     */
     protected void attack() {
         Coordinate2D playerLocation = getAnchorLocation();
         Coordinate2D weaponRelativePosition = WEAPON_POSITION;
@@ -345,6 +399,10 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         weapon.ifPresent(value -> value.attack(getAttackDirection(), weaponPosition));
     }
 
+    /**
+     * handles the replacing of the physical player character after the player dies
+     * updates the playerScoreIndicator to reflect fresh life
+     */
     @Override
     public void respawn() {
         double centralIslandSpawnY = centreIsland.getAnchorLocation().getY() - centreIsland.getHeight() - this.getHeight() - 10;
@@ -354,6 +412,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         setControlsBlocked(false);
     }
 
+
     @Override
     protected void setupEntities() {
         addEntity(character);
@@ -361,6 +420,11 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         weapon.ifPresent(this::addEntity); // Method reference to create compact lambda expressions
     }
 
+    /**
+     * resets player position in case of exiting screen on the sides
+     * "kills" the player if the player exits the screen on the bottom
+     * @param sceneBorder
+     */
     @Override
     public void notifyBoundaryTouching(SceneBorder sceneBorder) {
         // Check which scene border has been touched

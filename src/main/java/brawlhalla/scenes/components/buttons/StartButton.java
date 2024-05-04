@@ -30,19 +30,30 @@ public class StartButton extends TextEntity implements MouseButtonPressedListene
         setFont(Font.font("Roboto", FontWeight.BOLD, 30));
     }
 
-
+    /**
+     * creates instances of the chosen playerCharacters
+     * starts the IslandScene to start the game
+     * @param mouseButton
+     * @param coordinate2D
+     */
     @Override
     public void onMouseButtonPressed(MouseButton mouseButton, Coordinate2D coordinate2D) {
         startScene.getCharacterRoster().createPlayerCharacters();
         brawhalla.setActiveScene(Scenes.ISLAND.index);
     }
 
+    /**
+     * visual mouse indicator
+     */
     @Override
     public void onMouseEntered() {
         setFill(Color.GREEN);
         setCursor(Cursor.HAND);
     }
 
+    /**
+     * visual mouse indicator
+     */
     @Override
     public void onMouseExited(){
         setFill(Color.RED);
