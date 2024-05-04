@@ -19,7 +19,7 @@ public class PlayerScoreStatistics {
      * @param damage the damage dealt by a player
      */
     public void incrementDamageDealt(int damage) {
-        damageDealt = getDamageDealt() + (Math.max(damage, 0)); //waarom een get? het is een atribuut van deze class
+        damageDealt = getDamageDealt() + (Math.max(damage, 0)); //waarom een get? het is een atribuut van deze class || <- omdat het kan :)
     }
 
     /**
