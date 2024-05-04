@@ -14,10 +14,10 @@ public class Shotgun extends ProjectileWeapon {
 
     @Override
     public void attack(double direction, Coordinate2D startPosition) {
-        if(readyForAttack) {
+        if(!isAttacking) {
             YaegerEntity pistolBullet = new PistolBullet(startPosition, this, direction); // insert player position as start position for Bullet
             sceneToSpawnProjectiles.addEntityToSpawn(pistolBullet);
-            setReadyForAttack(false);
+            setIsAttacking(true);
         }
     }
 

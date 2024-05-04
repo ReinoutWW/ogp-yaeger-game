@@ -14,6 +14,5 @@ public class PickupTimer extends Timer {
     @Override
     public void onAnimationUpdate(long l) {
         weapon.setIsPickupBlocked(false);
-        System.out.println("Settings pickup blocked to: " + false + " for weapon: " + weapon);
     }
 }

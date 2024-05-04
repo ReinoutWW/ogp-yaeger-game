@@ -1,6 +1,5 @@
 package brawlhalla.timer;
 
-import brawlhalla.player.Player;
 import brawlhalla.weapons.IWeapon;
 import com.github.hanyaeger.api.Timer;
 
@@ -14,6 +13,6 @@ public class WeaponCooldownTimer extends Timer {
 
     @Override
     public void onAnimationUpdate(long l) {
-        weapon.setReadyForAttack(true);
+        weapon.setIsAttacking(false);
     }
 }

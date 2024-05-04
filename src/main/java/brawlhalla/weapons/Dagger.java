@@ -2,16 +2,10 @@ package brawlhalla.weapons;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.Direction;
 
 public class Dagger extends Melee {
     public Dagger(Coordinate2D initialLocation) {
-        super("sprites/weapons/melee_dagger.png", initialLocation, new Size(35, 60), 50);
-    }
-
-    @Override
-    public void attack(double direction, Coordinate2D initialLocation) {
-        // Do swing with weapon
+        super("sprites/weapons/melee_dagger.png", initialLocation, new Size(35, 60), 200);
     }
 
     @Override

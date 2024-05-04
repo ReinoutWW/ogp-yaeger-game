@@ -140,7 +140,6 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
         // Do attack
         if (pressedKeys.contains(playerMovementConfiguration.getAttack())) {
-            System.out.println("attack! ");
             attack();
         }
 
@@ -219,6 +218,24 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
 
         if(hitsClass(list, Weapon.class)) {
             handleWeaponCollision(list);
+        }
+
+        if(hitsClass(list, Melee.class)) {
+            handleMeleeCollision(list);
+        }
+    }
+
+    private void handleMeleeCollision(List<Collider> list) {
+        Melee collidedMelee = getFirstOfCollidedClasses(list, Melee.class);
+
+        if(collidedMelee.isDoingDamage() && this.weapon.orElse(null) != collidedMelee) {
+            this.movementTimer.reset();
+            this.setControlsBlocked(true);
+            addDamage(collidedMelee.getDamage());
+            doKnockback(collidedMelee.getKnockback(), getDirection());
+
+            playerStatusIndicator.updateStatus(this);
+            // Do something with the given projectile
         }
     }
 

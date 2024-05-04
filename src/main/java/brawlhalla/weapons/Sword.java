@@ -6,12 +6,7 @@ import com.github.hanyaeger.api.entities.Direction;
 
 public class Sword extends Melee {
     public Sword(Coordinate2D initialLocation) {
-        super("sprites/weapons/melee_sword.png", initialLocation, new Size(35, 60), 100);
-    }
-
-    @Override
-    public void attack(double direction, Coordinate2D startPosition) {
-        // Logic for attacking here
+        super("sprites/weapons/melee_sword.png", initialLocation, new Size(35, 60), 250);
     }
 
     @Override

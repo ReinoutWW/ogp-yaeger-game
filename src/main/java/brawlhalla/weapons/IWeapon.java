@@ -1,10 +1,9 @@
 package brawlhalla.weapons;
 
 import com.github.hanyaeger.api.Coordinate2D;
-import com.github.hanyaeger.api.entities.YaegerEntity;
 
 public interface IWeapon {
-    void setReadyForAttack(boolean ready);
+    void setIsAttacking(boolean ready);
 
     void attack(double direction, Coordinate2D startPosition);
 
