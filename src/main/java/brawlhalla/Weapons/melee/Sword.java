@@ -1,8 +1,8 @@
-package brawlhalla.weapons;
+package brawlhalla.weapons.melee;
 
+import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.Direction;
 
 public class Sword extends Melee {
     public Sword(Coordinate2D initialLocation) {
@@ -11,12 +11,12 @@ public class Sword extends Melee {
 
     @Override
     public float getDamage() {
-        return 0;
+        return 30;
     }
 
     @Override
     public float getKnockback() {
-        return 0;
+        return 3;
     }
 
     @Override

@@ -8,7 +8,10 @@ import brawlhalla.player.characters.Character;
 import brawlhalla.scenes.components.playerStatusIndicator.PlayerStatusIndicator;
 import brawlhalla.timer.MovementTimer;
 import brawlhalla.weapons.*;
+import brawlhalla.weapons.melee.Melee;
+import brawlhalla.weapons.projectiles.IProjectile;
 import brawlhalla.weapons.projectiles.Projectile;
+import brawlhalla.weapons.projectiles.ProjectileWeapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.TimerContainer;
 import com.github.hanyaeger.api.entities.*;
@@ -144,7 +147,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
 
         if(pressedKeys.contains(playerMovementConfiguration.getDrop())) {
-            dropWeapon();
+            //dropWeapon(); TO DO: Fix weapon spawn. Can't do addEntity on runtime..
         }
 
         double currentDirection = getDirection();
@@ -232,7 +235,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
             this.movementTimer.reset();
             this.setControlsBlocked(true);
             addDamage(collidedMelee.getDamage());
-            doKnockback(collidedMelee.getKnockback(), getDirection());
+            doKnockback(collidedMelee.getKnockback(), attackDirection);
 
             playerStatusIndicator.updateStatus(this);
             // Do something with the given projectile

@@ -1,9 +1,7 @@
 package brawlhalla.player.characters;
 
 import brawlhalla.scenes.IEntitySpawnableScene;
-import brawlhalla.weapons.Dagger;
-import brawlhalla.weapons.Pistol;
-import brawlhalla.weapons.Sword;
+import brawlhalla.weapons.projectiles.Pistol;
 import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;

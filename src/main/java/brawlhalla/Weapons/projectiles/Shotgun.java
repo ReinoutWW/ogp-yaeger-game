@@ -1,14 +1,15 @@
-package brawlhalla.weapons;
+package brawlhalla.weapons.projectiles;
 
 import brawlhalla.scenes.IEntitySpawnableScene;
-import brawlhalla.weapons.projectiles.PistolBullet;
+import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.YaegerEntity;
 
-public class Pistol extends ProjectileWeapon {
+public class Shotgun extends ProjectileWeapon {
 
-    public Pistol(Coordinate2D initialLocation, IEntitySpawnableScene scene){
-        super("sprites/weapons/weapon_pistol.png", initialLocation, scene, 100);
+    public Shotgun(Coordinate2D initialLocation, IEntitySpawnableScene scene){
+        super("sprites/weapons/weapon_shotgun.png", initialLocation, scene, 100);
+
     }
 
     @Override
@@ -26,7 +27,8 @@ public class Pistol extends ProjectileWeapon {
      */
     @Override
     public float getDamage() {
-        return 10;
+        float multiplier = (float)knockbackMultiplier / 100;
+        return 10 * multiplier;
     }
 
     /**
@@ -35,11 +37,12 @@ public class Pistol extends ProjectileWeapon {
      */
     @Override
     public float getKnockback() {
-        return 1;
+        float multiplier = (float)knockbackMultiplier / 100;
+        return 1 * multiplier;
     }
 
     @Override
     public Weapon cloneWeapon() {
-        return new Pistol(this.getAnchorLocation(), this.sceneToSpawnProjectiles);
+        return new Shotgun(this.getAnchorLocation(), this.sceneToSpawnProjectiles);
     }
 }

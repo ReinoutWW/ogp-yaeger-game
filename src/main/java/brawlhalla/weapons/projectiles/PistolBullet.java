@@ -1,7 +1,5 @@
 package brawlhalla.weapons.projectiles;
 
-import brawlhalla.player.Player;
-import brawlhalla.weapons.ProjectileWeapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.Collider;

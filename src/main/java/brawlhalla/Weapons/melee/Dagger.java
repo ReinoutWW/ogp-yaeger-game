@@ -1,5 +1,6 @@
-package brawlhalla.weapons;
+package brawlhalla.weapons.melee;
 
+import brawlhalla.weapons.Weapon;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 
@@ -10,12 +11,12 @@ public class Dagger extends Melee {
 
     @Override
     public float getDamage() {
-        return 0;
+        return 40;
     }
 
     @Override
     public float getKnockback() {
-        return 0;
+        return 2;
     }
 
     @Override

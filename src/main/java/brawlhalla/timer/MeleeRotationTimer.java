@@ -1,7 +1,6 @@
 package brawlhalla.timer;
 
-import brawlhalla.weapons.IWeapon;
-import brawlhalla.weapons.Melee;
+import brawlhalla.weapons.melee.Melee;
 import com.github.hanyaeger.api.Timer;
 
 /**

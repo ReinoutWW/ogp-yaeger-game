@@ -1,4 +1,4 @@
-package brawlhalla.weapons;
+package brawlhalla.weapons.projectiles;
 
 public interface IProjectile {
     ProjectileWeapon getProjectileWeapon();
