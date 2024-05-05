@@ -7,7 +7,7 @@ import com.github.hanyaeger.api.Timer;
  * Used to set a timer for the moving platform
  */
 public class PlatformTimer extends Timer {
-    private MovingPlatform movingPlatform;
+    private final MovingPlatform movingPlatform;
 
     public PlatformTimer(long intervalInMs, MovingPlatform movingPlatform) {
         super(intervalInMs);

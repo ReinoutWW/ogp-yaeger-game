@@ -10,7 +10,7 @@ import com.github.hanyaeger.api.scenes.SceneBorder;
  * Base class for a projectile
  */
 public abstract class Projectile extends DynamicSpriteEntity implements IProjectile, SceneBorderCrossingWatcher {
-    protected ProjectileWeapon projectileWeapon;
+    protected final ProjectileWeapon projectileWeapon;
 
     protected Projectile(String resource, Coordinate2D initialLocation, ProjectileWeapon projectileWeapon, Size size) {
         super(resource, initialLocation, size);
@@ -22,7 +22,7 @@ public abstract class Projectile extends DynamicSpriteEntity implements IProject
      * @return double direction
      */
     @Override
-    public double getDirection() {
+    public final double getDirection() {
         return super.getDirection();
     }
 
@@ -31,7 +31,7 @@ public abstract class Projectile extends DynamicSpriteEntity implements IProject
      * @param sceneBorder
      */
     @Override
-    public void notifyBoundaryCrossing(SceneBorder sceneBorder) {
+    public final void notifyBoundaryCrossing(SceneBorder sceneBorder) {
         remove();
     }
 }

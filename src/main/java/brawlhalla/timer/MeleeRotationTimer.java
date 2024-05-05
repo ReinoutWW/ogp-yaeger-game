@@ -7,7 +7,7 @@ import com.github.hanyaeger.api.Timer;
  * This will give the user the visual feedback of an attacking melee weapon (Rotating)
  */
 public class MeleeRotationTimer extends Timer {
-    private Melee weapon;
+    private final Melee weapon;
 
     public MeleeRotationTimer(long intervalInMs, Melee weapon) {
         super(intervalInMs);

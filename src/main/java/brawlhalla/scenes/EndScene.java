@@ -14,7 +14,7 @@ import com.github.hanyaeger.api.scenes.StaticScene;
 import javafx.scene.paint.Color;
 
 public class EndScene extends StaticScene {
-    private Brawhalla brawhalla;
+    private final Brawhalla brawhalla;
     private String winner;
 
     public EndScene(Brawhalla brawhalla) {

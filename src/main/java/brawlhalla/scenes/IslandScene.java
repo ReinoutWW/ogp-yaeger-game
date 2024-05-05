@@ -24,7 +24,7 @@ import com.github.hanyaeger.api.*;
 
 public class IslandScene extends DynamicScene implements EntitySpawnerContainer, IEntitySpawnableScene {
     private ProjectileSpawner projectileSpawner;
-    private Brawhalla brawhalla;
+    private final Brawhalla brawhalla;
     private Player player1;
     private Player player2;
 

@@ -7,7 +7,7 @@ import com.github.hanyaeger.api.Timer;
  * Used to time the powerup. Will remove the powerup after  the interval
  */
 public class PowerUpTimer extends Timer {
-    private PowerUp powerUp;
+    private final PowerUp powerUp;
 
     public PowerUpTimer(PowerUp powerUp) {
         super(3000); // Always 3s

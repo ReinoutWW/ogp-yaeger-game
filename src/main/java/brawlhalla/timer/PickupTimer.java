@@ -7,7 +7,7 @@ import com.github.hanyaeger.api.Timer;
  * A timer to unblock the pickup value after the interval
  */
 public class PickupTimer extends Timer {
-    private Weapon weapon;
+    private final Weapon weapon;
 
     public PickupTimer(long intervalInMs, Weapon weapon) {
         super(intervalInMs);

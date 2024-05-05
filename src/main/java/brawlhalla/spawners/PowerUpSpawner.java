@@ -10,8 +10,8 @@ import com.github.hanyaeger.api.entities.EntitySpawner;
 import java.util.Random;
 
 public class PowerUpSpawner extends EntitySpawner {
-    private double width;
-    private double height;
+    private final double width;
+    private final double height;
 
     public PowerUpSpawner(double width, double height) {
         super(3500);

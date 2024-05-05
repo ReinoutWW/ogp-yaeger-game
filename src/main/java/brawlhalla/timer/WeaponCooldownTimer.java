@@ -4,7 +4,7 @@ import brawlhalla.weapons.IWeapon;
 import com.github.hanyaeger.api.Timer;
 
 public class WeaponCooldownTimer extends Timer {
-    private IWeapon weapon;
+    private final IWeapon weapon;
 
     public WeaponCooldownTimer(long intervalInMs, IWeapon weapon) {
         super(intervalInMs);

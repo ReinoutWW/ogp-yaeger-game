@@ -4,7 +4,7 @@ import brawlhalla.scenes.components.characterSelection.CharacterRoster;
 import com.github.hanyaeger.api.Timer;
 
 public class SelectionTimer extends Timer {
-    private CharacterRoster characterroster;
+    private final CharacterRoster characterroster;
 
     public SelectionTimer(long intervalInMs, CharacterRoster characterRoster) {
         super(intervalInMs);

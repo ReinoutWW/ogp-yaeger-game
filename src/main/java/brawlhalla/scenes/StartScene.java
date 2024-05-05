@@ -8,7 +8,7 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.scenes.DynamicScene;
 
 public class StartScene extends DynamicScene {
-    private Brawhalla brawhalla;
+    private final  Brawhalla brawhalla;
     private CharacterRoster characterRoster;
 
     public CharacterRoster getCharacterRoster() {

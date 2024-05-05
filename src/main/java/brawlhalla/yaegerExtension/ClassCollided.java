@@ -17,12 +17,20 @@ import java.util.stream.Collectors;
 public interface ClassCollided extends Collided {
 
     /*
-     *
+     * Return true if the list with colliding objects contains a class of the given type
+     * @param collidingObjects list of colliding objects
+     * @param classType the given type to check instanceof
      * */
     default boolean hitsClass(List<Collider> collidingObjects, Class<? extends YaegerEntity> classType) {
         return collidingObjects.stream().anyMatch(classType::isInstance);
     }
 
+    /**
+     * Returns a list of colliding objects that are an instance of the given class
+     * @param collidingObjects list of colliding objects
+     * @param classType the given type to check instanceof
+     * @return the list of the given classType
+     */
     default List<Collider> getCollidedClasses(List<Collider> collidingObjects, Class<? extends YaegerEntity> classType) {
         return collidingObjects.stream()
                 .filter(classType::isInstance)
@@ -59,6 +67,14 @@ public interface ClassCollided extends Collided {
     }
 
 
+    /**
+     * Will validate if there are any of the type classes in the colliding objects
+     * This method utilizes type inference to determine the generic type T based on the provided classType.
+     *
+     * @param collidingObjects a list of Collider objects, typically provided by han.yaeger onCollision method
+     * @param classTypes the class literal of the type T to which the found collider will be cast
+     * @return if at least one class matches the type T, or false if no such collide is found
+     */
     default boolean hitsClasses(List<Collider> collidingObjects, List<Class<? extends YaegerEntity>> classTypes) {
         for(Class<? extends YaegerEntity> classType : classTypes) {
             if(hitsClass(collidingObjects, classType)) {
