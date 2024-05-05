@@ -14,6 +14,10 @@ public class PlatformTimer extends Timer {
         this.movingPlatform = movingPlatform;
     }
 
+    /**
+     * calls the method to invert the direction of the platforms on the set interval.
+     * @param l
+     */
     @Override
     public void onAnimationUpdate(long l)
     {
