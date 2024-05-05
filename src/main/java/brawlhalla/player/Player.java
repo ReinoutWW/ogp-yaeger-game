@@ -169,6 +169,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         }
     }
 
+    
     public int getDamageTakenMultiplier() {
         return damageTakenMultiplier;
     }
@@ -431,7 +432,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         // If below, lose lives
 
         if(sceneBorder == SceneBorder.BOTTOM) {
-            decreateLives(1);
+            decreaseLives(1);
             this.damageTakenMultiplier = 0;
             respawn();
         }
@@ -463,7 +464,7 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
      * If lives <= 0, nothing will happen.
      * @param amount should be positive
      */
-    public void decreateLives(int amount) {
+    public void decreaseLives(int amount) {
         if(lives - amount < 0) {
             lives = 0; // In case it would end up below 0
         } else {
