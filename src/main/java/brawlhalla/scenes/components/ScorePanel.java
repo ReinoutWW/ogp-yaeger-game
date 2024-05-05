@@ -8,9 +8,9 @@ import javafx.scene.paint.Color;
 
 
 public class ScorePanel extends DynamicCompositeEntity {
-   PlayerScoreStatistics playerScoreStatistics;
-   PlayerScoreStatistics enemyPlayerScoreStatistics;
-   Color backgroundColor;
+    private final PlayerScoreStatistics playerScoreStatistics;
+    private final PlayerScoreStatistics enemyPlayerScoreStatistics;
+    private final Color backgroundColor;
 
     public ScorePanel(Coordinate2D initialLocation, PlayerScoreStatistics playerScoreStatistics, PlayerScoreStatistics enemyPlayerScoreStatistics, Color backgroundColor) {
         super(initialLocation);
