@@ -13,7 +13,7 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import java.util.List;
 
 public abstract class PowerUp extends DynamicSpriteEntity implements TimerContainer, ClassCollided {
-    private PowerUpTimer powerUpTimer;
+    private final PowerUpTimer powerUpTimer;
     protected IPowerUpPlayer player;
     private int cyclesIdle = 0;
     private final int MAX_CYCLES_IDLE = 5;

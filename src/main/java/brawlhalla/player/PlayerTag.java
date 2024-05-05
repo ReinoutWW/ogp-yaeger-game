@@ -10,11 +10,8 @@ import javafx.scene.text.FontWeight;
  * Used to display the PlayerTag on a moving player
  */
 public class PlayerTag extends DynamicTextEntity {
-    Color playerColor;
-
     protected PlayerTag(Coordinate2D initialLocation, String playerName, Color playerColor) {
         super(initialLocation, playerName);
-        this.playerColor = playerColor;
         setFill(playerColor);
         setFont(Font.font("Roboto", FontWeight.BOLD, 12));
     }

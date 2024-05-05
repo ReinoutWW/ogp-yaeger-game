@@ -6,12 +6,12 @@ import javafx.scene.input.KeyCode;
  * The MovementConfiguration will be used to ensure better readability in the handling of movement
  */
 public class PlayerMovementConfiguration implements IMovementConfiguration {
-    private KeyCode up;
-    private KeyCode down;
-    private KeyCode left;
-    private KeyCode right;
-    private KeyCode attack;
-    private KeyCode drop;
+    private final KeyCode up;
+    private final KeyCode down;
+    private final KeyCode left;
+    private final KeyCode right;
+    private final KeyCode attack;
+    private final KeyCode drop;
 
     public PlayerMovementConfiguration(KeyCode up,
         KeyCode down,

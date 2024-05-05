@@ -34,16 +34,16 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
     private double attackDirection = Direction.RIGHT.getValue();
     private int lives;
     private int damageTakenMultiplier;
-    private Character character;
+    private final Character character;
     private final String playerName;
-    private PlayerTag playerTag;
-    private PlayerScoreStatistics playerScoreStatistics = new PlayerScoreStatistics();
-    private PlayerStatusIndicator playerStatusIndicator;
-    private IEntitySpawnableScene islandScene;
-    private SpriteEntity centreIsland;
+    private final PlayerTag playerTag;
+    private final PlayerScoreStatistics playerScoreStatistics = new PlayerScoreStatistics();
+    private final PlayerStatusIndicator playerStatusIndicator;
+    private final IEntitySpawnableScene islandScene;
+    private final SpriteEntity centreIsland;
     protected Optional<Weapon> weapon;
     protected boolean isGrounded;
-    protected MovementTimer movementTimer;
+    protected final MovementTimer movementTimer;
 
     private int speedBoostMultiplier = 100;
 
