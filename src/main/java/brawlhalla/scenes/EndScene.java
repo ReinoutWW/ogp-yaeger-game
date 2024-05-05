@@ -45,8 +45,8 @@ public class EndScene extends StaticScene {
         var againButton = new AgainButton(new Coordinate2D(getWidth()/2, getHeight()/2), brawhalla);
         var closeButton = new CloseButton(new Coordinate2D(getWidth()/2, getHeight()/2 + 90), brawhalla);
         var winnerText = new WinnerText(new Coordinate2D(getWidth()/2, 100), winner);
-        var scorePanel1 = new ScorePanel(new Coordinate2D(0, getHeight() - 200), brawhalla.getIslandScene().getPlayer1().getPlayerScoreStatistics(), Color.BLUE);
-        var scorePanel2 = new ScorePanel(new Coordinate2D(getWidth() - 200, getHeight() - 200), brawhalla.getIslandScene().getPlayer2().getPlayerScoreStatistics(), Color.RED);
+        var scorePanel1 = new ScorePanel(new Coordinate2D(0, getHeight() - 200), brawhalla.getIslandScene().getPlayer1().getPlayerScoreStatistics(), brawhalla.getIslandScene().getPlayer2().getPlayerScoreStatistics(), Color.BLUE);
+        var scorePanel2 = new ScorePanel(new Coordinate2D(getWidth() - 200, getHeight() - 200), brawhalla.getIslandScene().getPlayer2().getPlayerScoreStatistics(), brawhalla.getIslandScene().getPlayer1().getPlayerScoreStatistics(), Color.RED);
 
         winnerText.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         againButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);

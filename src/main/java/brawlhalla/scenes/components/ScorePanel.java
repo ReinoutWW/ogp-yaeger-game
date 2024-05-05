@@ -9,20 +9,22 @@ import javafx.scene.paint.Color;
 
 public class ScorePanel extends DynamicCompositeEntity {
    PlayerScoreStatistics playerScoreStatistics;
+   PlayerScoreStatistics enemyPlayerScoreStatistics;
    Color backgroundColor;
 
-    public ScorePanel(Coordinate2D initialLocation, PlayerScoreStatistics playerScoreStatistics, Color backgroundColor) {
+    public ScorePanel(Coordinate2D initialLocation, PlayerScoreStatistics playerScoreStatistics, PlayerScoreStatistics enemyPlayerScoreStatistics, Color backgroundColor) {
         super(initialLocation);
         this.playerScoreStatistics = playerScoreStatistics;
+        this.enemyPlayerScoreStatistics = enemyPlayerScoreStatistics;
         this.backgroundColor = backgroundColor;
     }
 
     @Override
     protected void setupEntities() {
         var scorePanelRectangle = new ScorePanelRectangle(new Coordinate2D(0, 0), backgroundColor);
-        var damageDealt = new ScoreLabel(new Coordinate2D(5, 10), "Damage Dealt: " + playerScoreStatistics.getDamageDealt(), 15);
+        var damageDealt = new ScoreLabel(new Coordinate2D(5, 10), "Damage Dealt: " + enemyPlayerScoreStatistics.getDamageReceived(), 15);
         var damageReceived = new ScoreLabel(new Coordinate2D(5, 35), "Damage Received: " + playerScoreStatistics.getDamageReceived(), 15);
-        var hitsDealt = new ScoreLabel(new Coordinate2D(5, 60), "Hits Dealt: " + playerScoreStatistics.getHitsDealt(),15);
+        var hitsDealt = new ScoreLabel(new Coordinate2D(5, 60), "Hits Dealt: " + enemyPlayerScoreStatistics.getHitsReceived(),15);
         var hitsReceived = new ScoreLabel(new Coordinate2D(5, 85), "Hits Received: " + playerScoreStatistics.getHitsReceived(), 15);
 
         addEntity(scorePanelRectangle);
