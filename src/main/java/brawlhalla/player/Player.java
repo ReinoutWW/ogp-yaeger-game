@@ -347,7 +347,6 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         float knockbackMultiplier = defaultAmount + ((float) damageTakenMultiplier / 100); // default + multiplier
         float knockbackPerformed = knockback * knockbackMultiplier; // calculate force with multiplier
         setMotion(knockbackPerformed, direction);
-        playerScoreStatistics.incrementKnockbackReceived((int)knockbackPerformed);
     }
 
     /**
