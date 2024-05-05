@@ -31,9 +31,6 @@ import java.util.Set;
 public class Player extends DynamicCompositeEntity implements IPlayer, TimerContainer, SceneBorderTouchingWatcher, ClassCollided, Collider {
     private final IMovementConfiguration playerMovementConfiguration;
     private final Coordinate2D WEAPON_POSITION = new Coordinate2D(0, 50);
-    private double attackDirection = Direction.RIGHT.getValue();
-    private int lives;
-    private int damageTakenMultiplier;
     private final Character character;
     private final String playerName;
     private final PlayerTag playerTag;
@@ -41,31 +38,15 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
     private final PlayerStatusIndicator playerStatusIndicator;
     private final IEntitySpawnableScene islandScene;
     private final SpriteEntity centreIsland;
+    private double attackDirection = Direction.RIGHT.getValue();
+    private int lives;
+    private int damageTakenMultiplier;
+    private int speedBoostMultiplier = 100;
+
     protected Optional<Weapon> weapon;
     protected boolean isGrounded;
     protected final MovementTimer movementTimer;
-
-    private int speedBoostMultiplier = 100;
-
-    /**
-     * This method will return if the controls or movement of the player is blocked.
-     * For example, after a projectile hit, the movement will be temporarily be suspended.
-     * @return boolean
-     */
-    public boolean areControlsBlocked() {
-        return controlsBlocked;
-    }
-
-    /**
-     * Sets the controllblock
-     * @param controllBlock
-     */
-    public void setControlsBlocked(boolean controllBlock) {
-        this.controlsBlocked = controllBlock;
-    }
-
     protected boolean controlsBlocked = false;
-
 
     public Player(Coordinate2D initialLocation, String name, Character character, PlayerStatusIndicator playerStatusIndicator, IEntitySpawnableScene islandScene, SpriteEntity centreIsland, Color playerColor, IMovementConfiguration movementConfiguration) {
         super(initialLocation);
@@ -475,6 +456,23 @@ public class Player extends DynamicCompositeEntity implements IPlayer, TimerCont
         if(lives < 1) {
             islandScene.setActiveScene(Scenes.END);
         }
+    }
+
+    /**
+     * This method will return if the controls or movement of the player is blocked.
+     * For example, after a projectile hit, the movement will be temporarily be suspended.
+     * @return boolean
+     */
+    public boolean areControlsBlocked() {
+        return controlsBlocked;
+    }
+
+    /**
+     * Sets the controllblock
+     * @param controllBlock
+     */
+    public void setControlsBlocked(boolean controllBlock) {
+        this.controlsBlocked = controllBlock;
     }
 
     @Override
