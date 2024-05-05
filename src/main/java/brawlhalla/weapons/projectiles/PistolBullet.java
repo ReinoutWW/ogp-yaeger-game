@@ -3,12 +3,7 @@ package brawlhalla.weapons.projectiles;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.Collider;
-import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
-import com.github.hanyaeger.api.scenes.SceneBorder;
-import brawlhalla.yaegerExtension.ClassCollided;
 import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.util.List;
 
 /**
  * A pistolbullet that can be used by for example projectile weapons
